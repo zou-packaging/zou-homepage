@@ -47,7 +47,7 @@ jobs:
       - name: Checkout private tools
         uses: actions/checkout@v4
         with:
-          repository: zou-homepage/infra-web-asuser-tf
+          repository: zou-homepage/s3-static-web-aws-infra
           token: ${{ secrets.GH_PAT }}
           ref: main
 
