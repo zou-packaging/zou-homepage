@@ -1,0 +1,295 @@
+/* Input.module.css */
+
+/* =================
+   Container
+   ================= */
+   .container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+    width: fit-content;
+    position: relative;
+  }
+  
+  .fullWidth {
+    width: 100%;
+  }
+  
+  /* =================
+     Label
+     ================= */
+  .label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-1);
+    cursor: pointer;
+  }
+  
+  .required {
+    color: var(--color-error);
+    font-weight: var(--font-weight-normal);
+  }
+  
+  /* =================
+     Input Wrapper
+     ================= */
+  .inputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: var(--color-white);
+    border: 2px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    transition: var(--transition-all);
+    overflow: hidden;
+  }
+  
+  .inputWrapper:hover:not(.disabled):not(.readOnly) {
+    border-color: var(--color-border-dark);
+  }
+  
+  .inputWrapper.focused {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+  }
+  
+  .inputWrapper.hasError {
+    border-color: var(--color-error);
+  }
+  
+  .inputWrapper.hasError.focused {
+    box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.1);
+  }
+  
+  .inputWrapper.disabled {
+    background-color: var(--color-gray-100);
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  
+  .inputWrapper.readOnly {
+    background-color: var(--color-gray-50);
+  }
+  
+  /* =================
+     Input Element
+     ================= */
+  .input {
+    flex: 1;
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    color: var(--color-text-primary);
+    outline: none;
+    min-width: 0;
+  }
+  
+  .input::placeholder {
+    color: var(--color-text-disabled);
+  }
+  
+  .input:disabled {
+    cursor: not-allowed;
+    color: var(--color-text-disabled);
+  }
+  
+  .input:read-only {
+    cursor: default;
+  }
+  
+  /* Remove number input spinners */
+  .input[type="number"]::-webkit-inner-spin-button,
+  .input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  .input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  
+  /* =================
+     Textarea
+     ================= */
+  .textarea {
+    resize: vertical;
+    min-height: 100px;
+    padding: var(--spacing-3);
+  }
+  
+  /* =================
+     Sizes
+     ================= */
+  .small .input {
+    padding: var(--spacing-2) var(--spacing-3);
+    font-size: var(--font-size-sm);
+  }
+  
+  .small.hasIcon.icon-left .input {
+    padding-left: calc(var(--spacing-8) + var(--spacing-1));
+  }
+  
+  .small.hasIcon.icon-right .input {
+    padding-right: calc(var(--spacing-8) + var(--spacing-1));
+  }
+  
+  .medium .input {
+    padding: var(--spacing-3) var(--spacing-4);
+    font-size: var(--font-size-base);
+  }
+  
+  .medium.hasIcon.icon-left .input {
+    padding-left: calc(var(--spacing-10) + var(--spacing-1));
+  }
+  
+  .medium.hasIcon.icon-right .input {
+    padding-right: calc(var(--spacing-10) + var(--spacing-1));
+  }
+  
+  .large .input {
+    padding: var(--spacing-4) var(--spacing-5);
+    font-size: var(--font-size-lg);
+  }
+  
+  .large.hasIcon.icon-left .input {
+    padding-left: calc(var(--spacing-12) + var(--spacing-1));
+  }
+  
+  .large.hasIcon.icon-right .input {
+    padding-right: calc(var(--spacing-12) + var(--spacing-1));
+  }
+  
+  /* =================
+     Icons
+     ================= */
+  .icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary);
+    pointer-events: none;
+  }
+  
+  .small .icon {
+    width: var(--spacing-8);
+    height: var(--spacing-8);
+  }
+  
+  .medium .icon {
+    width: var(--spacing-10);
+    height: var(--spacing-10);
+  }
+  
+  .large .icon {
+    width: var(--spacing-12);
+    height: var(--spacing-12);
+  }
+  
+  .icon-left .icon {
+    left: var(--spacing-3);
+  }
+  
+  .icon-right .icon {
+    right: var(--spacing-3);
+  }
+  
+  .icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* =================
+     Password Toggle
+     ================= */
+  .passwordToggle {
+    position: absolute;
+    right: var(--spacing-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    padding: var(--spacing-2);
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition-colors);
+  }
+  
+  .passwordToggle:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-gray-100);
+  }
+  
+  .passwordToggle:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+  }
+  
+  /* =================
+     Character Counter
+     ================= */
+  .counter {
+    position: absolute;
+    bottom: var(--spacing-2);
+    right: var(--spacing-3);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    pointer-events: none;
+  }
+  
+  .textarea ~ .counter {
+    bottom: var(--spacing-3);
+  }
+  
+  /* =================
+     Messages
+     ================= */
+  .error,
+  .hint {
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-tight);
+  }
+  
+  .error {
+    color: var(--color-error);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-1);
+  }
+  
+  .error::before {
+    content: '⚠';
+    font-size: var(--font-size-base);
+  }
+  
+  .hint {
+    color: var(--color-text-secondary);
+  }
+  
+  /* =================
+     Responsive
+     ================= */
+  @media (max-width: 480px) {
+    .small .input {
+      padding: var(--spacing-1) var(--spacing-2);
+      font-size: var(--font-size-xs);
+    }
+    
+    .medium .input {
+      padding: var(--spacing-2) var(--spacing-3);
+      font-size: var(--font-size-sm);
+    }
+    
+    .large .input {
+      padding: var(--spacing-3) var(--spacing-4);
+      font-size: var(--font-size-base);
+    }
+  }
