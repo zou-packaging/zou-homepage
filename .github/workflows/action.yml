@@ -156,7 +156,7 @@ jobs:
         run: |
           cd aws-s3
           terraform init
-          terraform apply -auto-approve \
+          terraform apply -auto-approve -lock=false \
             -target=aws_s3_bucket.bucket_web \
             -target=aws_s3_bucket_object.site_files
         env:
@@ -168,7 +168,7 @@ jobs:
         run: |
           cd aws-s3
           terraform init
-          terraform apply -auto-approve \
+          terraform apply -auto-approve -lock=false \
             -target=aws_s3_bucket.bucket_web_dev \
             -target=aws_s3_bucket_object.site_files_dev
         env:
