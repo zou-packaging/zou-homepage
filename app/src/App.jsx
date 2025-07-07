@@ -7,8 +7,11 @@ import Footer from './components/layout/Footer';
 import WhatsAppButton from './components/layout/WhatsAppButton';
 import Hero from './components/sections/Hero';
 import Products from './components/sections/Products';
+import ContactForm from './components/sections/ContactForm';
 import { Button } from './components/common';
 
+// Importar imagen de ejemplo (deberás agregar tu propia imagen)
+// import heroBackground from './assets/images/hero-bg.jpg';
 const heroBackground = 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&q=80&w=2000';
 
 function App() {
@@ -83,7 +86,14 @@ function App() {
       <div className="app">
         <Header 
           navItems={navItems}
-          ctaButton={<Button variant="primary">Solicitá Presupuesto</Button>}
+          ctaButton={
+            <Button 
+              variant="primary" 
+              onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Solicitá Presupuesto
+            </Button>
+          }
           sticky
           transparent
         />
@@ -128,8 +138,10 @@ function App() {
           />
 
           <Products />
+          
+          <ContactForm />
 
-          {/* Aquí irán las demás secciones */}
+          {/* Aquí irán las demás secciones (Beneficios, Confían en Nosotros) */}
         </main>
 
         <Footer 
