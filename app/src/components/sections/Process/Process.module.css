@@ -1,0 +1,444 @@
+/* Process.module.css */
+
+.section {
+    padding-top: var(--spacing-20);
+    padding-bottom: var(--spacing-20);
+    background: linear-gradient(135deg, var(--color-gray-50) 0%, var(--color-white) 100%);
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: var(--spacing-16);
+  }
+  
+  .title {
+    font-size: clamp(var(--font-size-3xl), 4vw, var(--font-size-4xl));
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-4);
+    position: relative;
+    display: inline-block;
+  }
+  
+  .title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    border-radius: var(--border-radius-full);
+  }
+  
+  .subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: var(--line-height-relaxed);
+  }
+  
+  /* Steps Navigation */
+  .stepsNavigation {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-12);
+  }
+  
+  .stepButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-6) var(--spacing-4);
+    background-color: var(--color-white);
+    border: 2px solid var(--color-border-light);
+    border-radius: var(--border-radius-xl);
+    cursor: pointer;
+    transition: var(--transition-all);
+    position: relative;
+  }
+  
+  .stepButton:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .stepButton.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .stepButton.active::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid var(--color-primary);
+  }
+  
+  .stepNumber {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+  }
+  
+  .stepButton.active .stepNumber {
+    color: var(--color-white);
+  }
+  
+  .stepTitle {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    text-align: center;
+  }
+  
+  /* Active Step */
+  .activeStep {
+    margin-bottom: var(--spacing-16);
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  .stepContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    min-height: 500px;
+  }
+  
+  .stepInfo {
+    padding: var(--spacing-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+  }
+  
+  .stepHeader {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-4);
+  }
+  
+  .stepIcon {
+    font-size: var(--font-size-4xl);
+    flex-shrink: 0;
+  }
+  
+  .stepMainTitle {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-1);
+  }
+  
+  .stepSubtitle {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+  
+  .stepDuration {
+    margin-left: auto;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  
+  .durationLabel {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .durationValue {
+    display: block;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+  }
+  
+  .stepDescription {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+  
+  .stepDetails {
+    background-color: var(--color-gray-50);
+    padding: var(--spacing-6);
+    border-radius: var(--border-radius-lg);
+  }
+  
+  .detailsTitle {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .detailsList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+  
+  .detailItem {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+  }
+  
+  .detailIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background-color: var(--color-success);
+    color: var(--color-white);
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    flex-shrink: 0;
+  }
+  
+  .stepImage {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-gray-100);
+  }
+  
+  .stepImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .stepBadge {
+    position: absolute;
+    top: var(--spacing-4);
+    right: var(--spacing-4);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: var(--color-white);
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: var(--border-radius-full);
+  }
+  
+  .badgeText {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+  }
+  
+  /* Timeline */
+  .timeline {
+    margin-bottom: var(--spacing-16);
+  }
+  
+  .timelineTitle {
+    text-align: center;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-8);
+  }
+  
+  .timelineContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-4);
+    position: relative;
+  }
+  
+  .timelineContainer::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    z-index: 1;
+  }
+  
+  .timelineItem {
+    background-color: var(--color-white);
+    padding: var(--spacing-4);
+    border-radius: var(--border-radius-lg);
+    border: 2px solid var(--color-border-light);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    transition: var(--transition-all);
+  }
+  
+  .timelineItem:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .timelineDay {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .timelineActivity {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+  }
+  
+  /* Guarantees */
+  .guarantees {
+    margin-bottom: var(--spacing-16);
+  }
+  
+  .guaranteesTitle {
+    text-align: center;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-10);
+  }
+  
+  .guaranteesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-6);
+  }
+  
+  .guaranteeCard {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    color: var(--color-white);
+    text-align: center;
+    padding: var(--spacing-8);
+    transition: var(--transition-all);
+  }
+  
+  .guaranteeCard:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  .guaranteeIcon {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .guaranteeTitle {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-3);
+  }
+  
+  .guaranteeDescription {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+    opacity: 0.95;
+  }
+  
+  /* CTA */
+  .cta {
+    text-align: center;
+  }
+  
+  .ctaCard {
+    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+    color: var(--color-white);
+    padding: var(--spacing-12);
+    border-radius: var(--border-radius-2xl);
+  }
+  
+  .ctaTitle {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .ctaText {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-8);
+    opacity: 0.95;
+  }
+  
+  .ctaButton {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+    padding: var(--spacing-4) var(--spacing-8);
+    border: none;
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: var(--transition-all);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .ctaButton:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    background-color: var(--color-gray-50);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .stepsNavigation {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-3);
+    }
+  
+    .stepContent {
+      grid-template-columns: 1fr;
+    }
+  
+    .stepInfo {
+      padding: var(--spacing-6);
+    }
+  
+    .stepHeader {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-3);
+    }
+  
+    .stepDuration {
+      margin-left: 0;
+      text-align: left;
+    }
+  
+    .stepImage {
+      min-height: 200px;
+    }
+  
+    .timelineContainer::before {
+      display: none;
+    }
+  
+    .guaranteesGrid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-4);
+    }
+  }
