@@ -1,4 +1,4 @@
-/* ContactForm.module.css */
+/* ContactForm.module.css - Optimizado para conversiones */
 
 /* =================
    Section Container
@@ -6,11 +6,11 @@
    .section {
     padding-top: var(--spacing-20);
     padding-bottom: var(--spacing-20);
-    background-color: var(--color-white);
+    background: linear-gradient(135deg, var(--color-gray-50) 0%, var(--color-white) 100%);
   }
   
   /* =================
-     Header
+     Header Optimizado
      ================= */
   .header {
     text-align: center;
@@ -42,8 +42,26 @@
     font-size: var(--font-size-lg);
     color: var(--color-text-secondary);
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0 auto var(--spacing-6) auto;
     line-height: var(--line-height-relaxed);
+  }
+  
+  /* Beneficios destacados */
+  .benefits {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-6);
+    margin-top: var(--spacing-4);
+    flex-wrap: wrap;
+  }
+  
+  .benefit {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-success);
+    font-weight: var(--font-weight-medium);
   }
   
   /* =================
@@ -76,6 +94,40 @@
     gap: var(--spacing-4);
   }
   
+  /* Campo de tipo de negocio */
+  .businessTypeField {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+  
+  .businessTypeLabel {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+  }
+  
+  .businessTypeSelect {
+    padding: var(--spacing-3) var(--spacing-4);
+    border: 2px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    font-family: inherit;
+    background-color: var(--color-white);
+    transition: var(--transition-all);
+    width: 100%;
+  }
+  
+  .businessTypeSelect:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+  }
+  
+  .businessTypeSelect:hover {
+    border-color: var(--color-border-dark);
+  }
+  
   .formActions {
     display: flex;
     gap: var(--spacing-3);
@@ -83,11 +135,29 @@
     margin-top: var(--spacing-4);
   }
   
+  /* Garantía de seguridad */
+  .guarantee {
+    background-color: var(--color-gray-50);
+    padding: var(--spacing-3);
+    border-radius: var(--border-radius-md);
+    text-align: center;
+    margin-top: var(--spacing-4);
+    border-left: 4px solid var(--color-success);
+  }
+  
+  .guarantee p {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+  }
+  
   /* =================
-     Preview
+     Preview Mejorado
      ================= */
   .preview {
     animation: slideDown 0.3s ease-out;
+    background: linear-gradient(135deg, var(--color-success) 0%, #4CAF50 100%);
+    color: var(--color-white);
   }
   
   @keyframes slideDown {
@@ -104,7 +174,6 @@
   .previewTitle {
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
-    color: var(--color-text-primary);
     margin: 0 0 var(--spacing-3) 0;
     display: flex;
     align-items: center;
@@ -115,8 +184,7 @@
     font-family: var(--font-family-mono);
     font-size: var(--font-size-sm);
     line-height: var(--line-height-relaxed);
-    color: var(--color-text-secondary);
-    background-color: var(--color-gray-50);
+    background-color: rgba(255, 255, 255, 0.1);
     padding: var(--spacing-4);
     border-radius: var(--border-radius-md);
     margin: 0;
@@ -124,17 +192,18 @@
     word-break: break-word;
     max-height: 300px;
     overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
   
   /* =================
-     Products Section
+     Products Section Mejorado
      ================= */
   .productsSection {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-6);
     position: sticky;
-    top: calc(64px + var(--spacing-4)); /* Header height + spacing */
+    top: calc(64px + var(--spacing-4));
   }
   
   .productsSectionTitle {
@@ -142,6 +211,9 @@
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
     margin: 0 0 var(--spacing-4) 0;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
   }
   
   .productsList {
@@ -175,10 +247,12 @@
     background-color: var(--color-gray-50);
     border-radius: var(--border-radius-md);
     transition: var(--transition-all);
+    border-left: 4px solid var(--color-primary);
   }
   
   .productItem:hover {
     background-color: var(--color-gray-100);
+    transform: translateX(4px);
   }
   
   .productImage {
@@ -215,6 +289,7 @@
     font-size: var(--font-size-xs);
     color: var(--color-primary);
     margin-top: var(--spacing-1);
+    font-weight: var(--font-weight-medium);
   }
   
   .removeButton {
@@ -235,6 +310,7 @@
   .removeButton:hover {
     background-color: var(--color-error);
     color: var(--color-white);
+    transform: scale(1.1);
   }
   
   .clearButton {
@@ -257,31 +333,49 @@
   }
   
   /* =================
-     Empty State
+     Empty State Mejorado
      ================= */
   .emptyProducts {
     text-align: center;
     padding: var(--spacing-8) var(--spacing-4);
     color: var(--color-text-secondary);
+    background: linear-gradient(135deg, var(--color-gray-50) 0%, var(--color-white) 100%);
+    border-radius: var(--border-radius-lg);
+    border: 2px dashed var(--color-border);
   }
   
   .emptyProducts p {
     margin-bottom: var(--spacing-4);
+    font-weight: var(--font-weight-medium);
   }
   
   /* =================
-     Info Card
+     Info Card Mejorado
      ================= */
   .infoCard {
-    background-color: var(--color-primary);
-    background-image: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
     color: var(--color-white);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .infoCard::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: pulse 3s ease-in-out infinite;
   }
   
   .infoTitle {
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
-    margin: 0 0 var(--spacing-3) 0;
+    margin: 0 0 var(--spacing-4) 0;
+    position: relative;
+    z-index: 1;
   }
   
   .infoList {
@@ -289,14 +383,17 @@
     counter-reset: step-counter;
     margin: 0 0 var(--spacing-4) 0;
     padding: 0;
+    position: relative;
+    z-index: 1;
   }
   
   .infoList li {
     counter-increment: step-counter;
     position: relative;
     padding-left: var(--spacing-8);
-    margin-bottom: var(--spacing-2);
+    margin-bottom: var(--spacing-3);
     line-height: var(--line-height-relaxed);
+    font-weight: var(--font-weight-medium);
   }
   
   .infoList li::before {
@@ -313,15 +410,39 @@
     justify-content: center;
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-bold);
+    border: 2px solid rgba(255, 255, 255, 0.3);
   }
   
-  .infoNote {
+  /* Badge urgente */
+  .urgentBadge {
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: var(--spacing-3);
+    border-radius: var(--border-radius-md);
+    margin-top: var(--spacing-4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    z-index: 1;
+  }
+  
+  .urgentBadge p {
+    margin: 0;
     font-size: var(--font-size-sm);
     line-height: var(--line-height-relaxed);
-    margin: 0;
-    padding: var(--spacing-3);
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: var(--border-radius-md);
+  }
+  
+  /* Error styling */
+  .error {
+    color: var(--color-error);
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-1);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-1);
+  }
+  
+  .error::before {
+    content: '⚠';
+    font-size: var(--font-size-base);
   }
   
   /* =================
@@ -353,6 +474,11 @@
   
     .subtitle {
       font-size: var(--font-size-base);
+    }
+  
+    .benefits {
+      flex-direction: column;
+      gap: var(--spacing-2);
     }
   
     .formActions {

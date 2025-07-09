@@ -2,11 +2,10 @@ import "./styles/reset.css";
 import "./styles/variables.css";
 import "./styles/global.css";
 import "./styles/animations.css";
+import "./utils/conversionTracking"; // Auto-inicializa el tracking
 import { ProductsProvider } from "./contexts/ProductsContext";
 import SEO from "./components/common/SEO/SEO";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
-import WhatsAppButton from "./components/layout/WhatsAppButton";
+import { Header, Footer, WhatsAppButton } from "./components/layout";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Clients from "./components/sections/Clients";

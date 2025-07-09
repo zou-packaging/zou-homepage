@@ -7,6 +7,10 @@ import {
   openWhatsApp,
   COMPANY_WHATSAPP,
 } from "../../../utils/whatsapp";
+import {
+  trackWhatsAppConversion,
+  trackMicroConversion,
+} from "../../../utils/conversionTracking";
 import styles from "./ContactForm.module.css";
 
 const ContactForm = () => {
@@ -16,18 +20,43 @@ const ContactForm = () => {
     email: "",
     phone: "",
     message: "",
+    businessType: "", // Nuevo campo para segmentar mejor
   });
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [previewMessage, setPreviewMessage] = useState("");
+  const [formStarted, setFormStarted] = useState(false);
+
+  // Opciones de tipo de negocio para mejor segmentación
+  const businessTypes = [
+    { value: "", label: "Seleccioná tu tipo de negocio" },
+    { value: "cafeteria", label: "☕ Cafetería / Coffee Shop" },
+    { value: "panaderia", label: "🥖 Panadería / Pastelería" },
+    { value: "restaurante", label: "🍽️ Restaurante / Bar" },
+    { value: "eventos", label: "🎉 Organización de Eventos" },
+    { value: "delivery", label: "🚚 Delivery / Take Away" },
+    { value: "hotel", label: "🏨 Hotel / Alojamiento" },
+    { value: "otro", label: "🏢 Otro tipo de negocio" },
+  ];
 
   // Actualizar preview cuando cambian los datos
   useEffect(() => {
     const preview = generatePreviewMessage(formData, selectedProducts);
     setPreviewMessage(preview);
   }, [formData, selectedProducts]);
+
+  // Trackear inicio de formulario
+  useEffect(() => {
+    if (!formStarted && (formData.name || formData.email || formData.phone)) {
+      setFormStarted(true);
+      trackMicroConversion("form_start", {
+        products_selected: selectedProducts.length,
+        business_type: formData.businessType,
+      });
+    }
+  }, [formData, formStarted, selectedProducts.length]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,6 +79,14 @@ const ContactForm = () => {
         ...prev,
         [name]: newErrors[name] || "",
       }));
+    }
+
+    // Trackear progreso del formulario
+    if (name === "businessType" && formattedValue) {
+      trackMicroConversion("business_type_selected", {
+        business_type: formattedValue,
+        products_selected: selectedProducts.length,
+      });
     }
   };
 
@@ -74,6 +111,7 @@ const ContactForm = () => {
       email: true,
       phone: true,
       message: true,
+      businessType: true,
     };
     setTouched(allTouched);
 
@@ -94,27 +132,47 @@ const ContactForm = () => {
 
     setIsSubmitting(true);
 
-    // Simular envío (aquí podrías agregar una llamada a API)
-    setTimeout(() => {
-      // Abrir WhatsApp
-      openWhatsApp(formData, selectedProducts, COMPANY_WHATSAPP);
-
-      // Limpiar formulario
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        message: "",
+    try {
+      // Trackear conversión ANTES de abrir WhatsApp
+      await trackWhatsAppConversion({
+        productsCount: selectedProducts.length,
+        businessType: formData.businessType,
+        estimatedValue: selectedProducts.length * 50, // Valor estimado basado en productos
+        userType: "lead",
+        source: "contact_form",
       });
-      setTouched({});
-      setErrors({});
 
-      // Limpiar productos seleccionados (opcional)
-      // clearSelection();
+      // Simular un pequeño delay para tracking
+      setTimeout(() => {
+        // Abrir WhatsApp
+        openWhatsApp(formData, selectedProducts, COMPANY_WHATSAPP);
 
+        // Limpiar formulario
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+          businessType: "",
+        });
+        setTouched({});
+        setErrors({});
+        setFormStarted(false);
+
+        setIsSubmitting(false);
+        setShowPreview(false);
+
+        // Mostrar mensaje de éxito
+        alert(
+          "¡Perfecto! Te estamos redirigiendo a WhatsApp para completar tu consulta."
+        );
+      }, 500);
+    } catch (error) {
+      console.error("Error al trackear conversión:", error);
+      // Abrir WhatsApp igual, aunque falle el tracking
+      openWhatsApp(formData, selectedProducts, COMPANY_WHATSAPP);
       setIsSubmitting(false);
-      setShowPreview(false);
-    }, 500);
+    }
   };
 
   const handleRemoveProduct = (productId) => {
@@ -124,15 +182,31 @@ const ContactForm = () => {
     }
   };
 
+  const handlePreviewToggle = () => {
+    setShowPreview(!showPreview);
+    if (!showPreview) {
+      trackMicroConversion("preview_message", {
+        products_selected: selectedProducts.length,
+      });
+    }
+  };
+
   return (
     <section id="contacto" className={styles.section}>
       <Container>
         <div className={styles.header}>
-          <h2 className={styles.title}>Solicitá tu Presupuesto</h2>
+          <h2 className={styles.title}>Solicitá tu Presupuesto Gratis</h2>
           <p className={styles.subtitle}>
-            Completá el formulario y te contactaremos por WhatsApp con toda la
-            información
+            📱 Completá el formulario y te contactaremos por WhatsApp en menos
+            de 2 horas
           </p>
+          <div className={styles.benefits}>
+            <span className={styles.benefit}>✅ Respuesta inmediata</span>
+            <span className={styles.benefit}>✅ Sin compromiso</span>
+            <span className={styles.benefit}>
+              ✅ Asesoramiento personalizado
+            </span>
+          </div>
         </div>
 
         <div className={styles.content}>
@@ -149,7 +223,7 @@ const ContactForm = () => {
                     onBlur={handleBlur}
                     error={errors.name}
                     required
-                    placeholder="Juan Pérez"
+                    placeholder="Ej: Juan Pérez"
                     fullWidth
                   />
 
@@ -162,34 +236,62 @@ const ContactForm = () => {
                     onBlur={handleBlur}
                     error={errors.email}
                     required
-                    placeholder="juan@empresa.com"
+                    placeholder="juan@tucafeteria.com"
                     fullWidth
                   />
 
                   <Input
                     type="tel"
-                    label="Teléfono"
+                    label="Teléfono / WhatsApp"
                     name="phone"
                     value={formatPhone(formData.phone)}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     error={errors.phone}
                     required
-                    placeholder="11 1234-5678"
+                    placeholder="351 123-4567"
                     hint="Incluí tu código de área"
                     fullWidth
                   />
                 </div>
 
+                {/* Campo de tipo de negocio */}
+                <div className={styles.businessTypeField}>
+                  <label
+                    htmlFor="businessType"
+                    className={styles.businessTypeLabel}
+                  >
+                    ¿Qué tipo de negocio tenés? *
+                  </label>
+                  <select
+                    id="businessType"
+                    name="businessType"
+                    value={formData.businessType}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={styles.businessTypeSelect}
+                    required
+                  >
+                    {businessTypes.map((type) => (
+                      <option key={type.value} value={type.value}>
+                        {type.label}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.businessType && (
+                    <span className={styles.error}>{errors.businessType}</span>
+                  )}
+                </div>
+
                 <Input
                   type="textarea"
-                  label="Mensaje adicional (opcional)"
+                  label="Contanos sobre tu proyecto (opcional)"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   error={errors.message}
-                  placeholder="Contanos más sobre lo que necesitás..."
+                  placeholder="Ej: Necesito vasos personalizados para mi nueva cafetería. Aproximadamente 500 unidades por mes..."
                   rows={4}
                   maxLength={500}
                   fullWidth
@@ -200,11 +302,11 @@ const ContactForm = () => {
                     type="button"
                     variant="ghost"
                     size="large"
-                    onClick={() => setShowPreview(!showPreview)}
+                    onClick={handlePreviewToggle}
                   >
                     {showPreview
                       ? "Ocultar Preview"
-                      : "Ver Preview del Mensaje"}
+                      : "📱 Ver Preview del Mensaje"}
                   </Button>
 
                   <Button
@@ -213,9 +315,27 @@ const ContactForm = () => {
                     size="large"
                     loading={isSubmitting}
                     disabled={isSubmitting}
+                    icon={
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.201 1.871.123.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                      </svg>
+                    }
                   >
-                    Enviar por WhatsApp
+                    {isSubmitting ? "Enviando..." : "Enviar por WhatsApp"}
                   </Button>
+                </div>
+
+                {/* Garantía */}
+                <div className={styles.guarantee}>
+                  <p>
+                    🔒 <strong>Tu información está segura.</strong> Solo la
+                    usamos para contactarte sobre tu consulta.
+                  </p>
                 </div>
               </form>
             </Card>
@@ -224,7 +344,7 @@ const ContactForm = () => {
             {showPreview && (
               <Card variant="filled" className={styles.preview}>
                 <h4 className={styles.previewTitle}>
-                  📱 Preview del mensaje de WhatsApp:
+                  📱 Así se verá tu mensaje en WhatsApp:
                 </h4>
                 <pre className={styles.previewMessage}>{previewMessage}</pre>
               </Card>
@@ -235,7 +355,7 @@ const ContactForm = () => {
           <div className={styles.productsSection}>
             <Card variant="outlined" padding="large">
               <h3 className={styles.productsSectionTitle}>
-                Productos Seleccionados ({selectedProducts.length})
+                🛍️ Productos Seleccionados ({selectedProducts.length})
               </h3>
 
               {selectedProducts.length > 0 ? (
@@ -282,7 +402,7 @@ const ContactForm = () => {
                 </>
               ) : (
                 <div className={styles.emptyProducts}>
-                  <p>No has seleccionado ningún producto aún.</p>
+                  <p>🎯 Elegí productos para un presupuesto más preciso</p>
                   <Button
                     variant="ghost"
                     onClick={() =>
@@ -291,26 +411,27 @@ const ContactForm = () => {
                         .scrollIntoView({ behavior: "smooth" })
                     }
                   >
-                    Explorar Productos
+                    Ver Catálogo
                   </Button>
                 </div>
               )}
             </Card>
 
-            {/* Información adicional */}
+            {/* Información adicional mejorada */}
             <Card variant="filled" className={styles.infoCard}>
-              <h4 className={styles.infoTitle}>¿Cómo funciona?</h4>
+              <h4 className={styles.infoTitle}>⚡ Proceso Super Rápido</h4>
               <ol className={styles.infoList}>
-                <li>Completá tus datos de contacto</li>
-                <li>Revisá los productos seleccionados</li>
-                <li>Agregá un mensaje si querés</li>
-                <li>Hacé clic en "Enviar por WhatsApp"</li>
-                <li>Se abrirá WhatsApp con el mensaje listo</li>
+                <li>📝 Completás tus datos (2 minutos)</li>
+                <li>📱 Te contactamos por WhatsApp (menos de 2 horas)</li>
+                <li>🎨 Creamos tu diseño personalizado (24-48hs)</li>
+                <li>✅ Aprobás y confirmás tu pedido</li>
+                <li>🚚 Recibís tus productos (7-10 días)</li>
               </ol>
-              <p className={styles.infoNote}>
-                💡 <strong>Tip:</strong> Podés editar el mensaje en WhatsApp
-                antes de enviarlo.
-              </p>
+              <div className={styles.urgentBadge}>
+                <p>
+                  🔥 <strong>¿Tenés urgencia?</strong> Llamanos al 351-789-2876
+                </p>
+              </div>
             </Card>
           </div>
         </div>

@@ -3,7 +3,7 @@ import { Container } from "../../common";
 import ProductCard from "./ProductCard";
 import ProductModal from "./ProductModal";
 import { useProducts } from "../../../contexts/ProductsContext";
-import { categories, getProductsByCategory } from "../Products/productsData";
+import { categories, getProductsByCategory } from "./productsData";
 import styles from "./Products.module.css";
 
 const Products = () => {
