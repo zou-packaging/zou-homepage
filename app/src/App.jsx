@@ -1,14 +1,18 @@
 import "./styles/reset.css";
 import "./styles/variables.css";
 import "./styles/global.css";
+import "./styles/animations.css";
 import { ProductsProvider } from "./contexts/ProductsContext";
+import SEO from "./components/common/SEO/SEO";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import WhatsAppButton from "./components/layout/WhatsAppButton";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Clients from "./components/sections/Clients";
+import Process from "./components/sections/Process";
 import Products from "./components/sections/Products";
+import FAQ from "./components/sections/FAQ";
 import ContactForm from "./components/sections/ContactForm";
 import { Button } from "./components/common";
 
@@ -22,7 +26,9 @@ function App() {
     { label: "Inicio", href: "#inicio" },
     { label: "Nosotros", href: "#nosotros" },
     { label: "Clientes", href: "#clientes" },
+    { label: "Proceso", href: "#proceso" },
     { label: "Productos", href: "#productos" },
+    { label: "FAQ", href: "#faq" },
     { label: "Contacto", href: "#contacto" },
   ];
 
@@ -41,8 +47,9 @@ function App() {
       title: "Empresa",
       links: [
         { label: "Nosotros", href: "#nosotros" },
+        { label: "Clientes", href: "#clientes" },
+        { label: "Proceso", href: "#proceso" },
         { label: "Calidad", href: "#calidad" },
-        { label: "Sustentabilidad", href: "#sustentabilidad" },
       ],
     },
   ];
@@ -87,6 +94,13 @@ function App() {
   return (
     <ProductsProvider>
       <div className="app">
+        {/* SEO Component */}
+        <SEO
+          title="ZOU - Productos Descartables Personalizados | Córdoba, Argentina"
+          description="Especialistas en productos descartables personalizados para empresas. Vasos térmicos, servilletas, bolsas de papel y más. Calidad premium y diseño único."
+          keywords="vasos térmicos personalizados córdoba, servilletas empresariales, bolsas papel kraft, productos descartables argentina, personalización corporativa"
+        />
+
         <Header
           navItems={navItems}
           ctaButton={
@@ -158,7 +172,11 @@ function App() {
 
           <Clients />
 
+          <Process />
+
           <Products />
+
+          <FAQ />
 
           <ContactForm />
         </main>
