@@ -259,7 +259,7 @@ function App() {
         <WhatsAppButton
           phoneNumber="5493517892876"
           message="Hola! Me gustaría recibir información sobre los productos personalizados de ZOU. Vi su página web y me interesa conocer más."
-          showTooltip
+          showTooltip={true}
         />
       </div>
     </ProductsProvider>
