@@ -1,6 +1,371 @@
-/* FAQ.module.css */
+/* FAQ.module.css - Versión Compacta y Optimizada */
 
-.section {
+/* =================
+   Compact Section
+   ================= */
+   .compactSection {
+    padding: var(--spacing-12) 0;
+    background: var(--color-gray-50);
+    border-top: 1px solid var(--color-border-light);
+  }
+  
+  /* =================
+     Compact Header
+     ================= */
+  .compactHeader {
+    text-align: center;
+    margin-bottom: var(--spacing-8);
+  }
+  
+  .compactTitle {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .compactSubtitle {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  /* =================
+     Compact Questions
+     ================= */
+  .compactQuestions {
+    max-width: 800px;
+    margin: 0 auto var(--spacing-10) auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+  
+  .compactQuestionCard {
+    background: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
+  
+  .compactQuestionCard:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .compactQuestionButton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-4) var(--spacing-5);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s ease;
+  }
+  
+  .compactQuestionButton:hover {
+    background-color: var(--color-gray-50);
+  }
+  
+  .compactQuestionButton.open {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+  
+  .compactQuestionText {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: inherit;
+    flex: 1;
+    margin-right: var(--spacing-3);
+    line-height: 1.4;
+  }
+  
+  .compactQuestionIcon {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: inherit;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+  
+  .compactQuestionButton.open .compactQuestionIcon {
+    transform: rotate(180deg);
+  }
+  
+  /* =================
+     Compact Answers
+     ================= */
+  .compactAnswerContainer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease-out;
+    background-color: var(--color-white);
+  }
+  
+  .compactAnswerContainer.open {
+    max-height: 200px;
+    transition: max-height 0.3s ease-in;
+  }
+  
+  .compactAnswerContent {
+    padding: 0 var(--spacing-5) var(--spacing-4) var(--spacing-5);
+    border-top: 1px solid var(--color-border-light);
+  }
+  
+  .compactAnswerText {
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    margin: var(--spacing-3) 0 0 0;
+  }
+  
+  /* =================
+     Compact CTA
+     ================= */
+  .compactCTA {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-8);
+    text-align: center;
+    margin-bottom: var(--spacing-6);
+    color: var(--color-white);
+  }
+  
+  .compactCTAContent {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .compactCTATitle {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .compactCTAText {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-6);
+    opacity: 0.95;
+  }
+  
+  .compactCTAButtons {
+    display: flex;
+    gap: var(--spacing-3);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .compactCTAWhatsApp,
+  .compactCTAEmail {
+    padding: var(--spacing-3) var(--spacing-6);
+    border: none;
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 160px;
+  }
+  
+  .compactCTAWhatsApp {
+    background-color: #25d366;
+    color: var(--color-white);
+  }
+  
+  .compactCTAWhatsApp:hover {
+    background-color: #22c55e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  }
+  
+  .compactCTAEmail {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+    border: 2px solid var(--color-white);
+  }
+  
+  .compactCTAEmail:hover {
+    background-color: transparent;
+    color: var(--color-white);
+    transform: translateY(-2px);
+  }
+  
+  /* =================
+     Final Trust
+     ================= */
+  .finalTrust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-3);
+    background: var(--color-white);
+    padding: var(--spacing-4) var(--spacing-6);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--color-border-light);
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .trustIcon {
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+  
+  .trustText {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+  }
+  
+  /* =================
+     Responsive Design
+     ================= */
+  @media (max-width: 768px) {
+    .compactSection {
+      padding: var(--spacing-8) 0;
+    }
+  
+    .compactHeader {
+      margin-bottom: var(--spacing-6);
+    }
+  
+    .compactTitle {
+      font-size: var(--font-size-xl);
+    }
+  
+    .compactSubtitle {
+      font-size: var(--font-size-sm);
+    }
+  
+    .compactQuestions {
+      margin-bottom: var(--spacing-8);
+    }
+  
+    .compactQuestionButton {
+      padding: var(--spacing-3) var(--spacing-4);
+    }
+  
+    .compactQuestionText {
+      font-size: var(--font-size-sm);
+    }
+  
+    .compactQuestionIcon {
+      font-size: var(--font-size-lg);
+    }
+  
+    .compactAnswerContent {
+      padding: 0 var(--spacing-4) var(--spacing-3) var(--spacing-4);
+    }
+  
+    .compactAnswerText {
+      font-size: var(--font-size-xs);
+    }
+  
+    .compactCTA {
+      padding: var(--spacing-6);
+      margin-bottom: var(--spacing-4);
+    }
+  
+    .compactCTATitle {
+      font-size: var(--font-size-lg);
+    }
+  
+    .compactCTAText {
+      font-size: var(--font-size-sm);
+      margin-bottom: var(--spacing-4);
+    }
+  
+    .compactCTAButtons {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .compactCTAWhatsApp,
+    .compactCTAEmail {
+      width: 100%;
+      max-width: 250px;
+      min-width: auto;
+    }
+  
+    .finalTrust {
+      flex-direction: column;
+      gap: var(--spacing-2);
+      padding: var(--spacing-3);
+    }
+  
+    .trustText {
+      font-size: var(--font-size-xs);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .compactQuestions {
+      gap: var(--spacing-2);
+    }
+  
+    .compactQuestionCard {
+      border-radius: var(--border-radius-md);
+    }
+  
+    .compactCTA {
+      border-radius: var(--border-radius-lg);
+      padding: var(--spacing-4);
+    }
+  
+    .finalTrust {
+      margin: 0 var(--spacing-2);
+    }
+  }
+  
+  /* =================
+     Performance Optimizations
+     ================= */
+  .compactQuestionCard {
+    contain: layout style paint;
+  }
+  
+  /* =================
+     Accessibility
+     ================= */
+  @media (prefers-reduced-motion: reduce) {
+    .compactQuestionCard,
+    .compactQuestionButton,
+    .compactAnswerContainer,
+    .compactCTAWhatsApp,
+    .compactCTAEmail {
+      transition: none;
+    }
+  }
+  
+  /* Focus styles */
+  .compactQuestionButton:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  
+  .compactCTAWhatsApp:focus-visible,
+  .compactCTAEmail:focus-visible {
+    outline: 2px solid var(--color-white);
+    outline-offset: 2px;
+  }
+  
+  /* =================
+     Legacy Support
+     ================= */
+  .section {
     padding-top: var(--spacing-20);
     padding-bottom: var(--spacing-20);
     background: linear-gradient(135deg, var(--color-white) 0%, var(--color-gray-50) 100%);
@@ -261,60 +626,4 @@
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
     text-align: center;
-  }
-  
-  /* Responsive */
-  @media (max-width: 768px) {
-    .section {
-      padding-top: var(--spacing-16);
-      padding-bottom: var(--spacing-16);
-    }
-  
-    .categories {
-      gap: var(--spacing-8);
-    }
-  
-    .questionButton {
-      padding: var(--spacing-4) var(--spacing-5);
-    }
-  
-    .questionText {
-      font-size: var(--font-size-sm);
-    }
-  
-    .questionIcon {
-      font-size: var(--font-size-lg);
-    }
-  
-    .answerContent {
-      padding: var(--spacing-4);
-    }
-  
-    .answerText {
-      font-size: var(--font-size-sm);
-    }
-  
-    .ctaButtons {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .ctaButton,
-    .ctaButtonSecondary {
-      width: 100%;
-      max-width: 300px;
-    }
-  
-    .quickStats {
-      grid-template-columns: 1fr;
-      gap: var(--spacing-4);
-    }
-  
-    .stat {
-      padding: var(--spacing-4);
-    }
-  
-    .statNumber {
-      font-size: var(--font-size-2xl);
-    }
   }

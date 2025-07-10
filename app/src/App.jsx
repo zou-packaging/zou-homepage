@@ -11,44 +11,45 @@ import About from "./components/sections/About";
 import Clients from "./components/sections/Clients";
 import Process from "./components/sections/Process";
 import Products from "./components/sections/Products";
+import Testimonials from "./components/sections/Testimonials";
 import FAQ from "./components/sections/FAQ";
 import ContactForm from "./components/sections/ContactForm";
 import { Button } from "./components/common";
 
-// Importar imagen de ejemplo (deberás agregar tu propia imagen)
+// Importar imagen optimizada para el hero
 const heroBackground =
   "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&q=80&w=2000";
 
 function App() {
-  // Datos de navegación
+  // Datos de navegación actualizados
   const navItems = [
     { label: "Inicio", href: "#inicio" },
     { label: "Nosotros", href: "#nosotros" },
     { label: "Clientes", href: "#clientes" },
     { label: "Proceso", href: "#proceso" },
     { label: "Productos", href: "#productos" },
-    { label: "FAQ", href: "#faq" },
     { label: "Contacto", href: "#contacto" },
+    { label: "FAQ", href: "#faq" },
   ];
 
   // Datos del footer
   const footerSections = [
     {
-      title: "Productos",
+      title: "Productos Destacados",
       links: [
-        { label: "Vasos Térmicos", href: "#vasos" },
-        { label: "Servilletas", href: "#servilletas" },
-        { label: "Bolsas", href: "#bolsas" },
+        { label: "Vasos Térmicos Personalizados", href: "#vasos" },
+        { label: "Servilletas Empresariales", href: "#servilletas" },
+        { label: "Bolsas Papel Kraft", href: "#bolsas" },
         { label: "Palitos Removedores", href: "#palitos" },
       ],
     },
     {
       title: "Empresa",
       links: [
-        { label: "Nosotros", href: "#nosotros" },
-        { label: "Clientes", href: "#clientes" },
-        { label: "Proceso", href: "#proceso" },
-        { label: "Calidad", href: "#calidad" },
+        { label: "Sobre Nosotros", href: "#nosotros" },
+        { label: "Nuestros Clientes", href: "#clientes" },
+        { label: "Proceso de Trabajo", href: "#proceso" },
+        { label: "Garantía de Calidad", href: "#calidad" },
       ],
     },
   ];
@@ -93,11 +94,11 @@ function App() {
   return (
     <ProductsProvider>
       <div className="app">
-        {/* SEO Component */}
+        {/* SEO Component optimizado para conversión */}
         <SEO
-          title="ZOU - Productos Descartables Personalizados | Córdoba, Argentina"
-          description="Especialistas en productos descartables personalizados para empresas. Vasos térmicos, servilletas, bolsas de papel y más. Calidad premium y diseño único."
-          keywords="vasos térmicos personalizados córdoba, servilletas empresariales, bolsas papel kraft, productos descartables argentina, personalización corporativa"
+          title="Vasos Térmicos Personalizados en Córdoba | ZOU - Productos Descartables"
+          description="Productos descartables personalizados para empresas en Córdoba. Vasos térmicos, servilletas, bolsas personalizadas. Diseño gratuito, entrega en 7 días. ¡Presupuesto sin compromiso!"
+          keywords="vasos térmicos personalizados córdoba, productos descartables personalizados, servilletas empresariales, bolsas papel kraft personalizadas, vasos café personalizados, impresión productos descartables córdoba"
         />
 
         <Header
@@ -111,7 +112,7 @@ function App() {
                   ?.scrollIntoView({ behavior: "smooth" })
               }
             >
-              Solicitá Presupuesto
+              Presupuesto Gratis
             </Button>
           }
           sticky
@@ -120,44 +121,8 @@ function App() {
 
         <main>
           <section id="inicio">
+            {/* Hero optimizado para conversión */}
             <Hero
-              title={
-                <>
-                  Productos Descartables{" "}
-                  <span style={{ color: "var(--color-primary-light)" }}>
-                    Personalizados
-                  </span>{" "}
-                  para tu Empresa
-                </>
-              }
-              subtitle="Calidad Premium"
-              description="Vasos térmicos, servilletas, bolsas y más. Diseñamos productos únicos que reflejan la identidad de tu marca con materiales eco-friendly."
-              primaryCTA={
-                <Button
-                  variant="primary"
-                  size="large"
-                  onClick={() =>
-                    document
-                      .getElementById("contacto")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                >
-                  Solicitá tu Presupuesto
-                </Button>
-              }
-              secondaryCTA={
-                <Button
-                  variant="ghost"
-                  size="large"
-                  onClick={() =>
-                    document
-                      .getElementById("productos")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                >
-                  Ver Catálogo
-                </Button>
-              }
               backgroundImage={heroBackground}
               overlay
               overlayOpacity={0.6}
@@ -175,9 +140,114 @@ function App() {
 
           <Products />
 
-          <FAQ />
+          {/* Testimonials estratégicamente posicionados para máximo impacto */}
+          <Testimonials />
 
+          {/* CTA Section estratégica antes del formulario */}
+          <section
+            className="pre-form-cta"
+            style={{
+              padding: "var(--spacing-16) 0",
+              background:
+                "linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)",
+              color: "white",
+              textAlign: "center",
+            }}
+          >
+            <div
+              style={{
+                maxWidth: "800px",
+                margin: "0 auto",
+                padding: "0 var(--spacing-4)",
+              }}
+            >
+              <h2
+                style={{
+                  fontSize: "clamp(1.8rem, 4vw, 3rem)",
+                  fontWeight: "var(--font-weight-bold)",
+                  marginBottom: "var(--spacing-4)",
+                  lineHeight: "1.2",
+                }}
+              >
+                ¿Listo para Ser Nuestro Próximo Caso de Éxito?
+              </h2>
+              <p
+                style={{
+                  fontSize: "var(--font-size-xl)",
+                  marginBottom: "var(--spacing-8)",
+                  color: "rgba(255, 255, 255, 0.9)",
+                }}
+              >
+                Únete a más de 247 empresarios que ya transformaron su marca con
+                nosotros
+              </p>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "var(--spacing-4)",
+                  justifyContent: "center",
+                  flexWrap: "wrap",
+                }}
+              >
+                <Button
+                  variant="secondary"
+                  size="large"
+                  onClick={() =>
+                    document
+                      .getElementById("contacto")
+                      ?.scrollIntoView({ behavior: "smooth" })
+                  }
+                  style={{
+                    background: "white",
+                    color: "var(--color-primary)",
+                    minWidth: "200px",
+                  }}
+                >
+                  🚀 Mi Presupuesto Ahora
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="large"
+                  onClick={() =>
+                    window.open(
+                      "https://wa.me/5493517892876?text=Hola! Vi los testimoniales y quiero información sobre productos personalizados",
+                      "_blank"
+                    )
+                  }
+                  style={{
+                    color: "white",
+                    borderColor: "white",
+                    minWidth: "180px",
+                  }}
+                >
+                  📱 WhatsApp Express
+                </Button>
+              </div>
+
+              {/* Trust badges actualizados */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "var(--spacing-6)",
+                  marginTop: "var(--spacing-8)",
+                  fontSize: "var(--font-size-sm)",
+                  opacity: "0.9",
+                  flexWrap: "wrap",
+                }}
+              >
+                <div>✅ 247+ empresas satisfechas</div>
+                <div>✅ 4.9⭐ en Google</div>
+                <div>✅ Garantía 100%</div>
+              </div>
+            </div>
+          </section>
+
+          {/* Formulario de contacto - Posición estratégica optimizada */}
           <ContactForm />
+
+          {/* FAQ compacto - Después del formulario para resolver objeciones post-conversión */}
+          <FAQ />
         </main>
 
         <Footer
@@ -188,7 +258,7 @@ function App() {
 
         <WhatsAppButton
           phoneNumber="5493517892876"
-          message="Hola! Me gustaría recibir información sobre los productos de ZOU"
+          message="Hola! Me gustaría recibir información sobre los productos personalizados de ZOU. Vi su página web y me interesa conocer más."
           showTooltip
         />
       </div>

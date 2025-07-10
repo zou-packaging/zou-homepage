@@ -1,101 +1,9 @@
-/* ContactForm.module.css - Optimizado para conversiones */
+/* ContactForm.module.css - Dropdown Fix */
 
 /* =================
-   Section Container
+   Business Type Field - FIXED
    ================= */
-   .section {
-    padding-top: var(--spacing-20);
-    padding-bottom: var(--spacing-20);
-    background: linear-gradient(135deg, var(--color-gray-50) 0%, var(--color-white) 100%);
-  }
-  
-  /* =================
-     Header Optimizado
-     ================= */
-  .header {
-    text-align: center;
-    margin-bottom: var(--spacing-12);
-  }
-  
-  .title {
-    font-size: clamp(var(--font-size-3xl), 4vw, var(--font-size-4xl));
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text-primary);
-    margin-bottom: var(--spacing-4);
-    position: relative;
-    display: inline-block;
-  }
-  
-  .title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background-color: var(--color-primary);
-    border-radius: var(--border-radius-full);
-  }
-  
-  .subtitle {
-    font-size: var(--font-size-lg);
-    color: var(--color-text-secondary);
-    max-width: 600px;
-    margin: 0 auto var(--spacing-6) auto;
-    line-height: var(--line-height-relaxed);
-  }
-  
-  /* Beneficios destacados */
-  .benefits {
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-6);
-    margin-top: var(--spacing-4);
-    flex-wrap: wrap;
-  }
-  
-  .benefit {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-2);
-    font-size: var(--font-size-sm);
-    color: var(--color-success);
-    font-weight: var(--font-weight-medium);
-  }
-  
-  /* =================
-     Content Layout
-     ================= */
-  .content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-8);
-    align-items: start;
-  }
-  
-  /* =================
-     Form Section
-     ================= */
-  .formSection {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-6);
-  }
-  
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-6);
-  }
-  
-  .formGrid {
-    display: grid;
-    gap: var(--spacing-4);
-  }
-  
-  /* Campo de tipo de negocio */
-  .businessTypeField {
+   .businessTypeField {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-2);
@@ -108,388 +16,255 @@
   }
   
   .businessTypeSelect {
-    padding: var(--spacing-3) var(--spacing-4);
+    padding: var(--spacing-4) var(--spacing-4);
     border: 2px solid var(--color-border);
     border-radius: var(--border-radius-md);
     font-size: var(--font-size-base);
     font-family: inherit;
     background-color: var(--color-white);
-    transition: var(--transition-all);
+    transition: all 0.2s ease;
     width: 100%;
+    cursor: pointer;
+    min-height: 48px;
+    
+    /* Mejorar contraste y visibilidad */
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-medium);
+    
+    /* Flecha personalizada más visible */
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23374151' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 20px;
+    padding-right: 48px;
   }
   
   .businessTypeSelect:focus {
     outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234CAF50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
   }
   
   .businessTypeSelect:hover {
-    border-color: var(--color-border-dark);
+    border-color: var(--color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .formActions {
-    display: flex;
-    gap: var(--spacing-3);
-    justify-content: space-between;
-    margin-top: var(--spacing-4);
-  }
-  
-  /* Garantía de seguridad */
-  .guarantee {
-    background-color: var(--color-gray-50);
-    padding: var(--spacing-3);
-    border-radius: var(--border-radius-md);
-    text-align: center;
-    margin-top: var(--spacing-4);
-    border-left: 4px solid var(--color-success);
-  }
-  
-  .guarantee p {
-    margin: 0;
-    font-size: var(--font-size-sm);
+  /* Placeholder/primera opción más clara */
+  .businessTypeSelect option:first-child {
     color: var(--color-text-secondary);
+    font-style: italic;
   }
   
-  /* =================
-     Preview Mejorado
-     ================= */
-  .preview {
-    animation: slideDown 0.3s ease-out;
-    background: linear-gradient(135deg, var(--color-success) 0%, #4CAF50 100%);
-    color: var(--color-white);
-  }
-  
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .previewTitle {
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-semibold);
-    margin: 0 0 var(--spacing-3) 0;
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-2);
-  }
-  
-  .previewMessage {
-    font-family: var(--font-family-mono);
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-relaxed);
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: var(--spacing-4);
-    border-radius: var(--border-radius-md);
-    margin: 0;
-    white-space: pre-wrap;
-    word-break: break-word;
-    max-height: 300px;
-    overflow-y: auto;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  /* =================
-     Products Section Mejorado
-     ================= */
-  .productsSection {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-6);
-    position: sticky;
-    top: calc(64px + var(--spacing-4));
-  }
-  
-  .productsSectionTitle {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-semibold);
+  /* Opciones del dropdown más visibles */
+  .businessTypeSelect option {
+    background-color: var(--color-white);
     color: var(--color-text-primary);
-    margin: 0 0 var(--spacing-4) 0;
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-2);
-  }
-  
-  .productsList {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-3);
-    max-height: 400px;
-    overflow-y: auto;
-    padding-right: var(--spacing-2);
-  }
-  
-  .productsList::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  .productsList::-webkit-scrollbar-track {
-    background: var(--color-gray-100);
-    border-radius: var(--border-radius-full);
-  }
-  
-  .productsList::-webkit-scrollbar-thumb {
-    background-color: var(--color-gray-400);
-    border-radius: var(--border-radius-full);
-  }
-  
-  .productItem {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-3);
     padding: var(--spacing-3);
-    background-color: var(--color-gray-50);
-    border-radius: var(--border-radius-md);
-    transition: var(--transition-all);
-    border-left: 4px solid var(--color-primary);
-  }
-  
-  .productItem:hover {
-    background-color: var(--color-gray-100);
-    transform: translateX(4px);
-  }
-  
-  .productImage {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: var(--border-radius-md);
-    flex-shrink: 0;
-  }
-  
-  .productInfo {
-    flex: 1;
-    min-width: 0;
-  }
-  
-  .productName {
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
-    color: var(--color-text-primary);
-    margin: 0 0 var(--spacing-1) 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .productCategory {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
-    margin: 0;
-  }
-  
-  .productCustomizable {
-    display: inline-block;
-    font-size: var(--font-size-xs);
-    color: var(--color-primary);
-    margin-top: var(--spacing-1);
-    font-weight: var(--font-weight-medium);
-  }
-  
-  .removeButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    background-color: transparent;
+    line-height: 1.5;
     border: none;
-    border-radius: var(--border-radius-full);
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    transition: var(--transition-all);
-    flex-shrink: 0;
   }
   
-  .removeButton:hover {
-    background-color: var(--color-error);
-    color: var(--color-white);
-    transform: scale(1.1);
-  }
-  
-  .clearButton {
-    width: 100%;
-    padding: var(--spacing-2);
-    background-color: transparent;
-    border: 1px solid var(--color-error);
-    border-radius: var(--border-radius-md);
-    color: var(--color-error);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    cursor: pointer;
-    transition: var(--transition-all);
-    margin-top: var(--spacing-2);
-  }
-  
-  .clearButton:hover {
-    background-color: var(--color-error);
+  .businessTypeSelect option:hover {
+    background-color: var(--color-primary);
     color: var(--color-white);
   }
   
-  /* =================
-     Empty State Mejorado
-     ================= */
-  .emptyProducts {
-    text-align: center;
-    padding: var(--spacing-8) var(--spacing-4);
-    color: var(--color-text-secondary);
-    background: linear-gradient(135deg, var(--color-gray-50) 0%, var(--color-white) 100%);
-    border-radius: var(--border-radius-lg);
-    border: 2px dashed var(--color-border);
-  }
-  
-  .emptyProducts p {
-    margin-bottom: var(--spacing-4);
-    font-weight: var(--font-weight-medium);
-  }
-  
-  /* =================
-     Info Card Mejorado
-     ================= */
-  .infoCard {
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  .businessTypeSelect option:checked {
+    background-color: var(--color-primary);
     color: var(--color-white);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .infoCard::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-    animation: pulse 3s ease-in-out infinite;
-  }
-  
-  .infoTitle {
-    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
-    margin: 0 0 var(--spacing-4) 0;
-    position: relative;
-    z-index: 1;
   }
   
-  .infoList {
-    list-style: none;
-    counter-reset: step-counter;
-    margin: 0 0 var(--spacing-4) 0;
-    padding: 0;
-    position: relative;
-    z-index: 1;
+  /* Estado cuando se selecciona una opción válida */
+  .businessTypeSelect:valid {
+    border-color: var(--color-success);
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2222c55e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
   }
   
-  .infoList li {
-    counter-increment: step-counter;
-    position: relative;
-    padding-left: var(--spacing-8);
-    margin-bottom: var(--spacing-3);
-    line-height: var(--line-height-relaxed);
-    font-weight: var(--font-weight-medium);
+  /* Estilos específicos para diferentes navegadores */
+  .businessTypeSelect::-ms-expand {
+    display: none;
   }
   
-  .infoList li::before {
-    content: counter(step-counter);
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 24px;
-    height: 24px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: var(--border-radius-full);
+  /* Firefox specific */
+  @-moz-document url-prefix() {
+    .businessTypeSelect {
+      padding-right: var(--spacing-4);
+      background-image: none;
+    }
+  }
+  
+  /* Webkit específico para mejor renderizado */
+  @media screen and (-webkit-min-device-pixel-ratio: 0) {
+    .businessTypeSelect option {
+      background-color: var(--color-white);
+      color: var(--color-text-primary);
+    }
+    
+    .businessTypeSelect option:hover,
+    .businessTypeSelect option:focus,
+    .businessTypeSelect option:active {
+      background-color: var(--color-primary) !important;
+      color: var(--color-white) !important;
+    }
+  }
+  
+  /* =================
+     Versión alternativa con custom dropdown
+     ================= */
+  .customDropdownContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+  
+  .customDropdownButton {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-bold);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-  }
-  
-  /* Badge urgente */
-  .urgentBadge {
-    background-color: rgba(255, 255, 255, 0.15);
-    padding: var(--spacing-3);
+    justify-content: space-between;
+    padding: var(--spacing-4);
+    border: 2px solid var(--color-border);
     border-radius: var(--border-radius-md);
-    margin-top: var(--spacing-4);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    position: relative;
-    z-index: 1;
+    background: var(--color-white);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 48px;
+    text-align: left;
   }
   
-  .urgentBadge p {
-    margin: 0;
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-relaxed);
+  .customDropdownButton:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
   
-  /* Error styling */
-  .error {
-    color: var(--color-error);
-    font-size: var(--font-size-sm);
-    margin-top: var(--spacing-1);
+  .customDropdownButton:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+  }
+  
+  .customDropdownButton.open {
+    border-color: var(--color-primary);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .customDropdownText {
+    flex: 1;
+  }
+  
+  .customDropdownText.placeholder {
+    color: var(--color-text-secondary);
+    font-style: italic;
+  }
+  
+  .customDropdownIcon {
+    transition: transform 0.2s ease;
+    color: var(--color-text-secondary);
+  }
+  
+  .customDropdownIcon.open {
+    transform: rotate(180deg);
+    color: var(--color-primary);
+  }
+  
+  .customDropdownList {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-white);
+    border: 2px solid var(--color-primary);
+    border-top: none;
+    border-bottom-left-radius: var(--border-radius-md);
+    border-bottom-right-radius: var(--border-radius-md);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .customDropdownOption {
     display: flex;
     align-items: center;
-    gap: var(--spacing-1);
+    padding: var(--spacing-3) var(--spacing-4);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid var(--color-border-light);
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
   }
   
-  .error::before {
-    content: '⚠';
-    font-size: var(--font-size-base);
+  .customDropdownOption:last-child {
+    border-bottom: none;
+  }
+  
+  .customDropdownOption:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+  
+  .customDropdownOption.selected {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+  }
+  
+  .customDropdownOption.selected:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
   }
   
   /* =================
      Responsive
      ================= */
-  @media (max-width: 1024px) {
-    .content {
-      grid-template-columns: 1fr;
+  @media (max-width: 768px) {
+    .businessTypeSelect {
+      font-size: var(--font-size-base);
+      padding: var(--spacing-3);
+      min-height: 44px;
     }
-  
-    .productsSection {
-      position: static;
+    
+    .customDropdownButton {
+      padding: var(--spacing-3);
+      min-height: 44px;
+      font-size: var(--font-size-base);
+    }
+    
+    .customDropdownList {
+      max-height: 150px;
     }
   }
   
-  @media (max-width: 768px) {
-    .section {
-      padding-top: var(--spacing-16);
-      padding-bottom: var(--spacing-16);
+  /* =================
+     Accesibilidad
+     ================= */
+  @media (prefers-contrast: high) {
+    .businessTypeSelect,
+    .customDropdownButton {
+      border-width: 3px;
     }
-  
-    .header {
-      margin-bottom: var(--spacing-8);
+    
+    .businessTypeSelect option,
+    .customDropdownOption {
+      border-bottom: 2px solid var(--color-border);
     }
+  }
   
-    .title {
-      font-size: var(--font-size-3xl);
-    }
-  
-    .subtitle {
-      font-size: var(--font-size-base);
-    }
-  
-    .benefits {
-      flex-direction: column;
-      gap: var(--spacing-2);
-    }
-  
-    .formActions {
-      flex-direction: column;
-    }
-  
-    .formActions button {
-      width: 100%;
-    }
-  
-    .productsList {
-      max-height: 300px;
+  @media (prefers-reduced-motion: reduce) {
+    .businessTypeSelect,
+    .customDropdownButton,
+    .customDropdownIcon,
+    .customDropdownOption {
+      transition: none;
     }
   }
