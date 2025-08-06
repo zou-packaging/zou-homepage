@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './chatbot.css';
+import avatarImage from '../../assets/abatar/abatar.png';
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -127,7 +128,7 @@ const Chatbot = () => {
       <div className={`chatbot-toggle ${isOpen ? 'open' : ''}`} onClick={toggleChat}>
         <div className="chatbot-avatar">
           <img 
-            src="/src/assets/abatar/abatar.png" 
+            src={avatarImage} 
             alt="Asistente Virtual" 
             className="avatar-image"
           />
@@ -140,7 +141,7 @@ const Chatbot = () => {
           <div className="chatbot-header">
             <div className="header-content">
               <img 
-                src="/src/assets/abatar/abatar.png" 
+                src={avatarImage} 
                 alt="Zou Assistant" 
                 className="header-avatar"
               />
