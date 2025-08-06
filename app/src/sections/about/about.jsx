@@ -19,11 +19,7 @@ const About = () => {
           <div className="about-feature">
             <div className="about-feature-icon">
               <div className="icon-circle eco-friendly">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M16 4C16 4 10 6.5 10 13C10 16.5 12.5 19 16 19C19.5 19 22 16.5 22 13C22 6.5 16 4 16 4Z" stroke="white" strokeWidth="1.5" fill="none"/>
-                  <path d="M16 19V28" stroke="white" strokeWidth="1.5"/>
-                  <path d="M12 24H20" stroke="white" strokeWidth="1.5"/>
-                </svg>
+                <i className="fas fa-leaf"></i>
               </div>
             </div>
             <h3 className="about-feature-title">Productos ecofriendly</h3>
@@ -36,15 +32,7 @@ const About = () => {
           <div className="about-feature">
             <div className="about-feature-icon">
               <div className="icon-circle personalized">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="16" cy="11" r="6" stroke="white" strokeWidth="1.5" fill="none"/>
-                  <circle cx="9" cy="16" r="2" fill="white"/>
-                  <circle cx="23" cy="16" r="2" fill="white"/>
-                  <circle cx="12" cy="23" r="2" fill="white"/>
-                  <circle cx="20" cy="23" r="2" fill="white"/>
-                  <circle cx="16" cy="27" r="2" fill="white"/>
-                  <path d="M16 17V21" stroke="white" strokeWidth="1.5"/>
-                </svg>
+                <i className="fas fa-palette"></i>
               </div>
             </div>
             <h3 className="about-feature-title">Productos personalizados</h3>
@@ -57,14 +45,7 @@ const About = () => {
           <div className="about-feature">
             <div className="about-feature-icon">
               <div className="icon-circle delivery">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="4" y="14" width="16" height="10" rx="1" stroke="white" strokeWidth="1.5" fill="none"/>
-                  <rect x="20" y="17" width="6" height="7" rx="1" stroke="white" strokeWidth="1.5" fill="none"/>
-                  <circle cx="9" cy="27" r="1.5" stroke="white" strokeWidth="1.5" fill="none"/>
-                  <circle cx="22" cy="27" r="1.5" stroke="white" strokeWidth="1.5" fill="none"/>
-                  <path d="M20 20H26" stroke="white" strokeWidth="1.5"/>
-                  <rect x="22" y="10" width="4" height="4" rx="0.5" stroke="white" strokeWidth="1.5" fill="none"/>
-                </svg>
+                <i className="fas fa-shipping-fast"></i>
               </div>
             </div>
             <h3 className="about-feature-title">Envíos a todo el país</h3>
