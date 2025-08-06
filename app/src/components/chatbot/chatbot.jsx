@@ -141,7 +141,7 @@ const Chatbot = () => {
           <div className="chatbot-header">
             <div className="header-content">
               <img 
-                src="/src/assets/abatar/abatar.png" 
+                src={avatarImage} 
                 alt="Zou Assistant" 
                 className="header-avatar"
               />
