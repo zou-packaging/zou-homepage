@@ -4,7 +4,7 @@ import './whatsapp.css';
 const WhatsApp = () => {
   const [isHovered, setIsHovered] = useState(false);
   
-  const phoneNumber = '5493512068013';
+  const phoneNumber = '3512341463';
   const message = '¡Hola! Me interesa conocer más sobre los productos de Zou Packaging.';
   
   const handleWhatsAppClick = () => {
