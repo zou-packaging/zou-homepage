@@ -16,13 +16,14 @@ const Footer = () => {
           {/* Contacto */}
           <div className="footer-contact">
             <h4 className="footer-title">Contacto</h4>
+            <p>+3512341463</p>
           </div>
           
           {/* Redes sociales */}
           <div className="footer-social">
             <h4 className="footer-title">Seguinos!</h4>
             <div className="footer-social-icons">
-              <a href="#" className="footer-social-link" aria-label="Instagram">
+              <a href="https://www.instagram.com/ZOU_PACKAGING/" target="_blank" rel="noopener noreferrer" className="footer-social-link" aria-label="Instagram">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" strokeWidth="2"/>
                   <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2"/>
