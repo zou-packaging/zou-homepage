@@ -1,7 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './contact.css';
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const phoneNumber = '5493512341463'; // Número de WhatsApp de destino
+    const { name, email, phone, message } = formData;
+    const text = `Hola, mi nombre es ${name}. Mi correo es ${email} y mi teléfono es ${phone}. Te escribo por el siguiente motivo: ${message}`;
+    const encodedText = encodeURIComponent(text);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedText}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <section className="contact-section" id="contacto">
       <div className="contact-container">
@@ -17,22 +42,22 @@ const Contact = () => {
           </div>
           <div className="contact-form-container">
             <h2 className="contact-title">Formulario de contacto</h2>
-            <form className="contact-form">
+            <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Nombre:</label>
-                <input type="text" id="name" name="name" required />
+                <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
               </div>
               <div className="form-group">
                 <label htmlFor="email">Correo:</label>
-                <input type="email" id="email" name="email" required />
+                <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
               </div>
               <div className="form-group">
                 <label htmlFor="phone">Teléfono</label>
-                <input type="tel" id="phone" name="phone" />
+                <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} />
               </div>
               <div className="form-group">
                 <label htmlFor="message">Mensaje:</label>
-                <textarea id="message" name="message" rows="4" required></textarea>
+                <textarea id="message" name="message" rows="4" value={formData.message} onChange={handleChange} required></textarea>
               </div>
               <button type="submit" className="submit-button">Enviar mensaje</button>
             </form>
