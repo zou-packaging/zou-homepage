@@ -9,6 +9,22 @@ const Nav = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleNavClick = (e) => {
+    e.preventDefault();
+    const targetId = e.currentTarget.getAttribute('href').substring(1);
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+    if (isMenuOpen) {
+      toggleMenu();
+    }
+  };
+
   return (
     <nav className="navbar">
       <div className="nav-container">
@@ -20,22 +36,22 @@ const Nav = () => {
         {/* Navigation Links */}
         <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
           <li className="nav-item">
-            <a href="#nosotros" className="nav-link">
+            <a href="#nosotros" className="nav-link" onClick={handleNavClick}>
               Nosotros
             </a>
           </li>
           <li className="nav-item">
-            <a href="#productos" className="nav-link">
+            <a href="#home" className="nav-link" onClick={handleNavClick}>
               Productos
             </a>
           </li>
           <li className="nav-item">
-            <a href="#clientes" className="nav-link">
+            <a href="#clientes" className="nav-link" onClick={handleNavClick}>
               Clientes
             </a>
           </li>
           <li className="nav-item">
-            <a href="#contacto" className="nav-link">
+            <a href="#contacto" className="nav-link" onClick={handleNavClick}>
               Contacto
             </a>
           </li>
