@@ -1,0 +1,295 @@
+/* Navigation Styles - Optimized for Google Ads 2025 */
+.zou-navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e0e0e0;
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 12px 0;
+}
+
+.zou-navigation.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  padding: 8px 0;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  gap: 20px;
+}
+
+/* Logo Section */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.logo-image {
+  height: 40px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.zou-navigation.scrolled .logo-image {
+  height: 32px;
+}
+
+.logo-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  display: none;
+}
+
+/* Contact Info */
+.nav-contact {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+  justify-content: center;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.contact-icon {
+  font-size: 1rem;
+}
+
+.contact-text {
+  font-weight: 500;
+}
+
+/* Action Buttons */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.phone-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 2px solid #17a2b8;
+  color: #17a2b8;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.phone-btn:hover {
+  background: #17a2b8;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.whatsapp-cta-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #25d366;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(37, 211, 102, 0.3);
+  min-height: 44px; /* Touch target for mobile */
+}
+
+.whatsapp-cta-btn:hover {
+  background: #128c7e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+}
+
+.whatsapp-cta-btn:active {
+  transform: translateY(0);
+}
+
+.whatsapp-icon {
+  font-size: 1.2rem;
+}
+
+.btn-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.1;
+}
+
+.btn-text strong {
+  font-size: 0.95rem;
+}
+
+.btn-text small {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+.btn-icon {
+  font-size: 1rem;
+}
+
+/* Progress Bar */
+.scroll-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(37, 211, 102, 0.1);
+}
+
+.progress-bar {
+  height: 100%;
+  background: #25d366;
+  transform-origin: left;
+  transition: transform 0.1s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .nav-contact {
+    gap: 16px;
+  }
+  
+  .contact-text {
+    font-size: 0.85rem;
+  }
+  
+  .whatsapp-cta-btn {
+    padding: 8px 16px;
+  }
+  
+  .btn-text strong {
+    font-size: 0.9rem;
+  }
+  
+  .btn-text small {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    padding: 0 15px;
+    gap: 15px;
+  }
+  
+  .desktop-only {
+    display: none !important;
+  }
+  
+  .logo-text {
+    display: block;
+    font-size: 1.1rem;
+  }
+  
+  .whatsapp-cta-btn {
+    padding: 10px 16px;
+  }
+  
+  .btn-text {
+    display: none;
+  }
+  
+  .whatsapp-cta-btn::after {
+    content: "Cotizar";
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 0 12px;
+    gap: 12px;
+  }
+  
+  .logo-image {
+    height: 32px;
+  }
+  
+  .logo-text {
+    font-size: 1rem;
+  }
+  
+  .whatsapp-cta-btn {
+    padding: 8px 12px;
+    min-width: 44px;
+    justify-content: center;
+  }
+  
+  .whatsapp-icon {
+    font-size: 1.1rem;
+  }
+}
+
+/* Animation for initial load */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.zou-navigation {
+  animation: slideDown 0.5s ease-out;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .zou-navigation {
+    border-bottom: 2px solid #000;
+  }
+  
+  .whatsapp-cta-btn {
+    border: 2px solid #128c7e;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .zou-navigation,
+  .whatsapp-cta-btn,
+  .phone-btn,
+  .progress-bar {
+    transition: none;
+  }
+  
+  .zou-navigation {
+    animation: none;
+  }
+}
