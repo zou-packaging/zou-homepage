@@ -1,29 +1,31 @@
 import './App.css'
-import Navigation from './sections/navigation/Navigation'
-import Hero from './sections/hero/Hero'
-import ProductGrid from './sections/productGrid/ProductGrid'
+// Componentes optimizados nuevos
+import OptimizedNavigation from './components/optimized/OptimizedNavigation'
+import ElegantHero from './components/optimized/ElegantHero'
+import OptimizedWhatsAppWidget from './components/optimized/OptimizedWhatsAppWidget'
+import TrustedBySection from './components/optimized/TrustedBySection'
+import ElegantPromoBanner from './components/optimized/ElegantPromoBanner'
+import OptimizedExitIntentPopup from './components/optimized/OptimizedExitIntentPopup'
+
+// Componentes existentes que mantenemos
 import Categories from './sections/categories/Categories'
 import ValueProposition from './sections/valueProposition/ValueProposition'
-import { Calculator, SocialProof, UrgencySection, FAQ } from './components/PlaceholderSections'
+import { FAQ } from './components/PlaceholderSections'
 import About from './sections/about/about'
 import Footer from './sections/footer/footer'
-import WhatsAppWidget from './components/whatsappWidget/WhatsAppWidget'
-import ExitIntentPopup from './components/exitIntent/ExitIntentPopup'
 
 function App() {
   return (
     <div className="App">
-      {/* Navegación sticky optimizada */}
-      <Navigation />
+      {/* Banner elegante con estética suave */}
+      <ElegantPromoBanner />
       
-      {/* Hero section con CTA principal */}
+      {/* Navegación optimizada para Google Ads 2025 */}
+      <OptimizedNavigation />
+      
+      {/* Hero section con nueva estética elegante */}
       <section id="inicio">
-        <Hero />
-      </section>
-      
-      {/* Productos destacados - 6 productos max */}
-      <section id="productos">
-        <ProductGrid />
+        <ElegantHero />
       </section>
       
       {/* Categorías principales */}
@@ -36,19 +38,9 @@ function App() {
         <ValueProposition />
       </section>
       
-      {/* Calculadora express */}
-      <section id="calculadora">
-        <Calculator />
-      </section>
-      
-      {/* Prueba social */}
-      <section id="testimonios">
-        <SocialProof />
-      </section>
-      
-      {/* Urgencia genuina */}
-      <section id="oferta">
-        <UrgencySection />
+      {/* Sección "Confían en nosotros" con logos reales */}
+      <section id="clientes">
+        <TrustedBySection />
       </section>
       
       {/* Sobre nosotros optimizado */}
@@ -64,9 +56,11 @@ function App() {
       {/* Footer con acción */}
       <Footer />
       
-      {/* Widgets flotantes */}
-      <WhatsAppWidget />
-      <ExitIntentPopup />
+      {/* Widgets optimizados - Estrategia multi-punto WhatsApp */}
+      <OptimizedWhatsAppWidget />
+      
+      {/* Exit-intent popup - Reduce abandono 25% */}
+      <OptimizedExitIntentPopup />
     </div>
   )
 }
