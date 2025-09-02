@@ -146,32 +146,7 @@ const ElegantHero = () => {
             </button>
           </div>
           
-          {/* Feature highlights en fila debajo de botones */}
-          <div className="feature-highlights-row">
-            <div className="feature-card">
-              <div className="feature-icon">📱</div>
-              <div className="feature-text">
-                <span className="feature-title">Diseño móvil</span>
-                <span className="feature-desc">Adaptado a tu negocio</span>
-              </div>
-            </div>
-            
-            <div className="feature-card">
-              <div className="feature-icon">♻️</div>
-              <div className="feature-text">
-                <span className="feature-title">Eco-friendly</span>
-                <span className="feature-desc">Materiales sustentables</span>
-              </div>
-            </div>
-            
-            <div className="feature-card">
-              <div className="feature-icon">🎯</div>
-              <div className="feature-text">
-                <span className="feature-title">Sin mínimos</span>
-                <span className="feature-desc">Desde 1 unidad</span>
-              </div>
-            </div>
-          </div>
+
         </div>
         
         {/* Elementos decorativos elegantes */}
@@ -182,22 +157,22 @@ const ElegantHero = () => {
             <div className="elegant-circle circle-3"></div>
           </div>
           
-          {/* Iconos de productos en espiral */}
+          {/* Iconos de productos reales en espiral */}
           <div className="product-icons-spiral">
             <div className="product-icon-item icon-1">
-              <span className="product-emoji">☕</span>
+              <img src="/src/assets/productos/vasoDeCafe.jpg" alt="Vaso de café personalizado" className="product-image" />
             </div>
             
             <div className="product-icon-item icon-2">
-              <span className="product-emoji">📦</span>
+              <img src="/src/assets/productos/cajaSimple.jpg" alt="Caja de packaging sustentable" className="product-image" />
             </div>
             
             <div className="product-icon-item icon-3">
-              <span className="product-emoji">🛍️</span>
+              <img src="/src/assets/productos/bolsaSimple.png" alt="Bolsa ecológica personalizada" className="product-image" />
             </div>
             
             <div className="product-icon-item icon-4">
-              <span className="product-emoji">🥤</span>
+              <img src="/src/assets/productos/caja-pasteles.png" alt="Caja para pasteles" className="product-image" />
             </div>
           </div>
         </div>
@@ -253,7 +228,7 @@ const ElegantHero = () => {
           left: 0;
           right: 0;
           bottom: 0;
-          background-image: url('/src/assets/packaging-banner.jpg');
+          background-image: url('/src/assets/productos/packagingVarios.jpg');
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
@@ -384,63 +359,7 @@ const ElegantHero = () => {
         .hero-cta-secondary:hover .secondary-arrow {
           transform: translateX(3px);
         }
-        
-        .feature-highlights-row {
-          display: flex;
-          gap: 16px;
-          margin-top: 32px;
-          flex-wrap: wrap;
-        }
-        
-        .feature-highlights-row .feature-card {
-          flex: 1;
-          min-width: 200px;
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          padding: 16px;
-          background: rgba(255, 255, 255, 0.8);
-          border-radius: 16px;
-          box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          transition: transform 0.3s ease;
-        }
-        
-        .feature-highlights-row .feature-card:hover {
-          transform: translateY(-2px);
-        }
-        
-        .feature-highlights-row .feature-icon {
-          font-size: 1.5rem;
-          width: 40px;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: rgba(255, 255, 255, 0.6);
-          border-radius: 50%;
-          flex-shrink: 0;
-        }
-        
-        .feature-highlights-row .feature-text {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-        }
-        
-        .feature-highlights-row .feature-title {
-          font-size: 0.9rem;
-          font-weight: 600;
-          color: #2d3748;
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-        
-        .feature-highlights-row .feature-desc {
-          font-size: 0.75rem;
-          color: #64748b;
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
+
 
         .hero-decoration {
           position: relative;
@@ -514,47 +433,65 @@ const ElegantHero = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: all 0.3s ease;
+          transition: all 0.4s ease;
           cursor: pointer;
           pointer-events: auto;
           animation: floatProduct 4s ease-in-out infinite;
+          width: 120px;
+          height: 120px;
+          border-radius: 20px;
+          background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8));
+          box-shadow: 0 12px 35px rgba(0,0,0,0.12), 0 4px 15px rgba(0,0,0,0.06);
+          backdrop-filter: blur(15px);
+          border: 1px solid rgba(255, 255, 255, 0.6);
+          transform-style: preserve-3d;
         }
         
         .product-icon-item:hover {
-          transform: translateY(-5px) scale(1.15);
+          transform: translateY(-12px) scale(1.08) rotateY(5deg);
+          box-shadow: 0 20px 45px rgba(0,0,0,0.18), 0 8px 25px rgba(0,0,0,0.1);
         }
         
-        /* Posicionamiento en espiral */
+        .product-image {
+          width: 90px;
+          height: 90px;
+          object-fit: cover;
+          border-radius: 15px;
+          transition: all 0.4s ease;
+          filter: brightness(1.05) saturate(1.1) contrast(1.05);
+          box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-icon-item:hover .product-image {
+          filter: brightness(1.15) saturate(1.25) contrast(1.1);
+          transform: scale(1.02);
+        }
+        
+        /* Posicionamiento centralizado entre círculos */
         .icon-1 { 
-          top: 15%; 
-          right: 25%; 
+          top: 25%; 
+          right: 35%; 
           animation-delay: 0s; 
         }
         
         .icon-2 { 
-          top: 45%; 
-          right: 10%; 
+          top: 55%; 
+          right: 15%; 
           animation-delay: 1s; 
         }
         
         .icon-3 { 
-          bottom: 25%; 
-          right: 30%; 
+          bottom: 35%; 
+          right: 40%; 
           animation-delay: 2s; 
         }
         
         .icon-4 { 
-          bottom: 15%; 
-          left: 15%; 
+          bottom: 25%; 
+          left: 25%; 
           animation-delay: 0.5s; 
         }
-        
-        .product-emoji {
-          font-size: 3rem;
-          filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
-          animation: bounce 3s ease-in-out infinite;
-          transition: all 0.3s ease;
-        }
+
 
         .feature-card {
           display: flex;
@@ -701,15 +638,7 @@ const ElegantHero = () => {
             justify-content: center;
           }
 
-          .feature-highlights-row {
-            flex-direction: column;
-            margin-top: 24px;
-            gap: 12px;
-          }
-          
-          .feature-highlights-row .feature-card {
-            min-width: auto;
-          }
+
           
           .hero-decoration {
             height: 300px;
@@ -745,8 +674,16 @@ const ElegantHero = () => {
             left: auto !important;
           }
           
-          .product-emoji {
-            font-size: 2.5rem;
+          .product-icon-item {
+            width: 100px;
+            height: 100px;
+            position: relative !important;
+            display: inline-flex;
+          }
+          
+          .product-image {
+            width: 75px;
+            height: 75px;
           }
 
           .feature-card {

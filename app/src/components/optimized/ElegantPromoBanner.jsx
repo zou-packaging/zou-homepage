@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-// Banner estético inspirado en la imagen mostrada
+// Navbar dinámico elegante (transformado desde ElegantPromoBanner)
 const ElegantPromoBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [currentOffer, setCurrentOffer] = useState(0);
+  const [currentSection, setCurrentSection] = useState(0);
 
   const phoneNumber = '5493512341463';
 
-  // Ofertas con la nueva estética y colores suaves
-  const elegantOffers = [
+  // Secciones dinámicas del navbar con rotación
+  const navSections = [
     {
       icon: '✨',
       title: 'Diseño personalizado',
       subtitle: 'Tu marca, nuestra experiencia',
       cta: 'Solicitar presupuesto',
       bgGradient: 'linear-gradient(135deg, #FF9A8A, #FFA726)',
-      message: '✨ Hola! Me interesa el diseño personalizado para mi marca. ¿Podrían ayudarme con un presupuesto?'
+      message: '✨ Hola! Me interesa el diseño personalizado para mi marca. ¿Podrían ayudarme con un presupuesto?',
+      link: '#categorias'
     },
     {
       icon: '🌱',
@@ -23,7 +24,8 @@ const ElegantPromoBanner = () => {
       subtitle: 'Cuidamos el planeta juntos',
       cta: 'Ver opciones eco',
       bgGradient: 'linear-gradient(135deg, #81C784, #4FD1C7)',
-      message: '🌱 Hola! Me interesa conocer sus opciones de packaging sustentable. ¿Pueden mostrarme las alternativas eco?'
+      message: '🌱 Hola! Me interesa conocer sus opciones de packaging sustentable. ¿Pueden mostrarme las alternativas eco?',
+      link: '#valor'
     },
     {
       icon: '🎯',
@@ -31,118 +33,138 @@ const ElegantPromoBanner = () => {
       subtitle: 'Te asesoramos sin compromiso',
       cta: 'Agendar llamada',
       bgGradient: 'linear-gradient(135deg, #F48FB1, #EC407A)',
-      message: '🎯 Hola! Me interesa la consultoría gratuita. ¿Podríamos agendar una llamada para hablar de mi proyecto?'
+      message: '🎯 Hola! Me interesa la consultoría gratuita. ¿Podríamos agendar una llamada para hablar de mi proyecto?',
+      link: '#nosotros'
     }
   ];
 
-  useEffect(() => {
-    // Mostrar banner después de 2 segundos
-    const showTimer = setTimeout(() => {
-      setIsVisible(true);
-    }, 2000);
+  // Menú tradicional siempre visible
+  const menuItems = [
+    { label: 'Inicio', link: '#inicio' },
+    { label: 'Productos', link: '#categorias' },
+    { label: 'Nosotros', link: '#nosotros' },
+    { label: 'Contacto', link: '#faq' }
+  ];
 
-    // Rotar ofertas cada 12 segundos
+  useEffect(() => {
+    setIsVisible(true);
+    
+    // Rotar secciones cada 10 segundos
     const rotateTimer = setInterval(() => {
-      setCurrentOffer((prev) => (prev + 1) % elegantOffers.length);
-    }, 12000);
+      setCurrentSection((prev) => (prev + 1) % navSections.length);
+    }, 10000);
 
     return () => {
-      clearTimeout(showTimer);
       clearInterval(rotateTimer);
     };
   }, []);
 
-  const handleOfferClick = useCallback(() => {
-    const offer = elegantOffers[currentOffer];
-    const encodedMessage = encodeURIComponent(offer.message);
+  const handleSectionClick = useCallback(() => {
+    const section = navSections[currentSection];
+    const encodedMessage = encodeURIComponent(section.message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     
-    // Tracking elegante
+    // Tracking navbar dinámico
     if (typeof gtag !== 'undefined') {
       gtag('event', 'conversion', {
-        send_to: 'AW-CONVERSION_ID/Elegant_Banner_Click',
-        event_category: 'Promo Banner',
-        event_label: `elegant_offer_${currentOffer + 1}`,
+        send_to: 'AW-CONVERSION_ID/Dynamic_Navbar_Click',
+        event_category: 'Navigation',
+        event_label: `nav_section_${currentSection + 1}`,
         value: 1,
         currency: 'ARS'
       });
     }
     
     window.open(whatsappUrl, '_blank');
-  }, [currentOffer, phoneNumber]);
+  }, [currentSection, phoneNumber]);
 
-  const handleDismiss = useCallback(() => {
-    setIsVisible(false);
+  const handleMenuClick = useCallback((link) => {
+    const element = document.querySelector(link);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   }, []);
 
   if (!isVisible) return null;
 
-  const offer = elegantOffers[currentOffer];
+  const currentSectionData = navSections[currentSection];
 
   return (
-    <div className="elegant-promo-banner">
-      <div className="banner-background">
-        <div className="banner-overlay"></div>
+    <nav className="elegant-navbar">
+      <div className="navbar-background">
+        <div className="navbar-overlay"></div>
       </div>
       
-      <div className="banner-content">
-        <div className="banner-left">
-          <div className="offer-icon">
-            <span className="icon-emoji">{offer.icon}</span>
-          </div>
-          
-          <div className="offer-text">
-            <h3 className="offer-title">{offer.title}</h3>
-            <p className="offer-subtitle">{offer.subtitle}</p>
-          </div>
+      <div className="navbar-content">
+        {/* Logo */}
+        <div className="navbar-logo">
+          <span className="logo-text">Zou</span>
+          <span className="logo-subtitle">Packaging</span>
         </div>
         
-        <div className="banner-right">
-          <button 
-            className="elegant-cta"
-            onClick={handleOfferClick}
-            style={{ background: offer.bgGradient }}
-          >
-            <span className="cta-text">{offer.cta}</span>
-            <span className="cta-arrow">→</span>
-          </button>
-          
-          <button 
-            className="banner-close"
-            onClick={handleDismiss}
-            aria-label="Cerrar banner"
-          >
-            ✕
-          </button>
+        {/* Menú tradicional (desktop) */}
+        <div className="navbar-menu">
+          {menuItems.map((item, index) => (
+            <button
+              key={index}
+              className="menu-item"
+              onClick={() => handleMenuClick(item.link)}
+            >
+              {item.label}
+            </button>
+          ))}
         </div>
-      </div>
-      
-      {/* Indicadores de progreso */}
-      <div className="progress-indicators">
-        {elegantOffers.map((_, index) => (
-          <div 
-            key={index}
-            className={`progress-dot ${index === currentOffer ? 'active' : ''}`}
-            style={{ 
-              background: index === currentOffer ? offer.bgGradient : 'rgba(255,255,255,0.3)' 
-            }}
-          />
-        ))}
+        
+        {/* Sección dinámica rotativa */}
+        <div className="navbar-dynamic">
+          <div className="dynamic-left">
+            <div className="dynamic-icon">
+              <span className="section-emoji">{currentSectionData.icon}</span>
+            </div>
+            
+            <div className="dynamic-text">
+              <h3 className="dynamic-title">{currentSectionData.title}</h3>
+              <p className="dynamic-subtitle">{currentSectionData.subtitle}</p>
+            </div>
+          </div>
+          
+          <div className="navbar-actions">
+            <button 
+              className="navbar-cta"
+              onClick={handleSectionClick}
+              style={{ background: currentSectionData.bgGradient }}
+            >
+              <span className="cta-text">{currentSectionData.cta}</span>
+              <span className="cta-arrow">→</span>
+            </button>
+          </div>
+        </div>
       </div>
 
       <style jsx>{`
-        .elegant-promo-banner {
+        .elegant-navbar {
           position: fixed;
           top: 0;
           left: 0;
           right: 0;
-          z-index: 998;
-          height: 80px;
+          z-index: 1000;
+          height: 90px;
           overflow: hidden;
           animation: slideDown 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
         }
         
-        .banner-background {
+        .navbar-background {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 1;
+        }
+        
+        .navbar-background::before {
+          content: '';
           position: absolute;
           top: 0;
           left: 0;
@@ -152,25 +174,28 @@ const ElegantPromoBanner = () => {
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
+          z-index: 1;
         }
-        
-        .banner-overlay {
+
+        .navbar-overlay {
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
           bottom: 0;
           background: linear-gradient(135deg, 
-            rgba(255, 154, 138, 0.95), 
-            rgba(255, 167, 38, 0.9), 
-            rgba(244, 143, 177, 0.95)
+            rgba(255, 255, 255, 0.97) 0%,
+            rgba(255, 248, 240, 0.95) 25%,
+            rgba(252, 228, 236, 0.95) 50%,
+            rgba(240, 248, 255, 0.97) 100%
           );
-          backdrop-filter: blur(1px);
+          z-index: 2;
+          backdrop-filter: blur(2px);
         }
         
-        .banner-content {
+        .navbar-content {
           position: relative;
-          z-index: 2;
+          z-index: 3;
           max-width: 1200px;
           margin: 0 auto;
           height: 100%;
@@ -178,64 +203,127 @@ const ElegantPromoBanner = () => {
           align-items: center;
           justify-content: space-between;
           padding: 0 24px;
+          gap: 40px;
         }
         
-        .banner-left {
+        .navbar-logo {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          flex-shrink: 0;
+        }
+        
+        .logo-text {
+          font-size: 1.8rem;
+          font-weight: 800;
+          color: #4fd1c7;
+          line-height: 1;
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .logo-subtitle {
+          font-size: 0.7rem;
+          font-weight: 600;
+          color: #64748b;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .navbar-menu {
+          display: flex;
+          gap: 32px;
+          flex-shrink: 0;
+        }
+        
+        .menu-item {
+          background: none;
+          border: none;
+          color: #4a5568;
+          font-size: 0.95rem;
+          font-weight: 600;
+          cursor: pointer;
+          padding: 8px 16px;
+          border-radius: 20px;
+          transition: all 0.3s ease;
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .menu-item:hover {
+          background: rgba(79, 209, 199, 0.1);
+          color: #4fd1c7;
+          transform: translateY(-1px);
+        }
+        
+        .navbar-dynamic {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          flex: 1;
+          max-width: 500px;
+        }
+        
+        .dynamic-left {
           display: flex;
           align-items: center;
           gap: 16px;
           flex: 1;
         }
         
-        .offer-icon {
+        .dynamic-icon {
           width: 48px;
           height: 48px;
-          background: rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.8);
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.4);
+          flex-shrink: 0;
         }
         
-        .icon-emoji {
+        .section-emoji {
           font-size: 1.5rem;
           animation: float 3s ease-in-out infinite;
         }
         
-        .offer-text {
-          color: white;
+        .dynamic-text {
+          min-width: 0;
+          flex: 1;
         }
         
-        .offer-title {
-          font-size: 1.1rem;
+        .dynamic-title {
+          font-size: 1rem;
           font-weight: 700;
-          margin: 0 0 4px 0;
-          text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+          margin: 0 0 2px 0;
+          color: #2d3748;
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         
-        .offer-subtitle {
-          font-size: 0.9rem;
+        .dynamic-subtitle {
+          font-size: 0.8rem;
           margin: 0;
-          opacity: 0.95;
-          font-weight: 400;
-          text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+          opacity: 0.8;
+          color: #64748b;
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         
-        .banner-right {
-          display: flex;
-          align-items: center;
-          gap: 16px;
+        .navbar-actions {
+          flex-shrink: 0;
         }
         
-        .elegant-cta {
+        .navbar-cta {
           background: linear-gradient(135deg, #FF9A8A, #FFA726);
           color: white;
           border: none;
-          padding: 12px 24px;
+          padding: 10px 20px;
           border-radius: 25px;
           font-weight: 600;
           font-size: 0.9rem;
@@ -251,7 +339,7 @@ const ElegantPromoBanner = () => {
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
-        .elegant-cta:hover {
+        .navbar-cta:hover {
           transform: translateY(-1px);
           box-shadow: 0 6px 20px rgba(255, 154, 138, 0.4);
         }
@@ -261,51 +349,8 @@ const ElegantPromoBanner = () => {
           transition: transform 0.3s ease;
         }
         
-        .elegant-cta:hover .cta-arrow {
+        .navbar-cta:hover .cta-arrow {
           transform: translateX(2px);
-        }
-        
-        .banner-close {
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.2);
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          color: white;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 0.9rem;
-          transition: all 0.3s ease;
-          backdrop-filter: blur(10px);
-        }
-        
-        .banner-close:hover {
-          background: rgba(255, 255, 255, 0.3);
-          transform: scale(1.1);
-        }
-        
-        .progress-indicators {
-          position: absolute;
-          bottom: 8px;
-          left: 50%;
-          transform: translateX(-50%);
-          display: flex;
-          gap: 8px;
-          z-index: 3;
-        }
-        
-        .progress-dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.3);
-          transition: all 0.3s ease;
-        }
-        
-        .progress-dot.active {
-          transform: scale(1.3);
         }
         
         /* Animaciones */
@@ -333,12 +378,22 @@ const ElegantPromoBanner = () => {
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
         
         /* Mobile Optimization */
-        @media (max-width: 768px) {
-          .elegant-promo-banner {
-            height: 100px;
+        @media (max-width: 1024px) {
+          .navbar-menu {
+            display: none;
           }
           
-          .banner-content {
+          .navbar-content {
+            gap: 20px;
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .elegant-navbar {
+            height: 110px;
+          }
+          
+          .navbar-content {
             padding: 0 16px;
             flex-direction: column;
             justify-content: center;
@@ -346,75 +401,75 @@ const ElegantPromoBanner = () => {
             gap: 12px;
           }
           
-          .banner-left {
+          .navbar-dynamic {
+            flex-direction: column;
+            gap: 12px;
+            max-width: 100%;
+          }
+          
+          .dynamic-left {
             justify-content: center;
             gap: 12px;
           }
           
-          .banner-right {
-            justify-content: center;
-            gap: 12px;
-          }
-          
-          .offer-icon {
+          .dynamic-icon {
             width: 40px;
             height: 40px;
           }
           
-          .icon-emoji {
+          .section-emoji {
             font-size: 1.3rem;
           }
           
-          .offer-title {
-            font-size: 1rem;
+          .dynamic-title {
+            font-size: 0.9rem;
+            white-space: normal;
+            text-align: center;
           }
           
-          .offer-subtitle {
-            font-size: 0.8rem;
+          .dynamic-subtitle {
+            font-size: 0.75rem;
+            white-space: normal;
+            text-align: center;
           }
           
-          .elegant-cta {
-            padding: 10px 20px;
+          .navbar-cta {
+            padding: 8px 16px;
             font-size: 0.85rem;
-          }
-          
-          .progress-indicators {
-            bottom: 4px;
           }
         }
         
         /* Extra small screens */
         @media (max-width: 480px) {
-          .banner-left {
+          .dynamic-left {
             flex-direction: column;
             gap: 8px;
           }
           
-          .elegant-cta {
-            padding: 8px 16px;
+          .navbar-cta {
+            padding: 8px 14px;
             font-size: 0.8rem;
           }
           
-          .banner-close {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 28px;
-            height: 28px;
-            font-size: 0.8rem;
+          .logo-text {
+            font-size: 1.5rem;
+          }
+          
+          .logo-subtitle {
+            font-size: 0.65rem;
           }
         }
         
         /* Performance optimization */
-        .elegant-promo-banner * {
+        .elegant-navbar * {
           will-change: transform, opacity;
         }
         
         /* Accessibility */
         @media (prefers-reduced-motion: reduce) {
-          .elegant-promo-banner,
-          .icon-emoji,
-          .elegant-cta {
+          .elegant-navbar,
+          .section-emoji,
+          .navbar-cta {
             animation: none;
             transition: none;
           }
@@ -422,19 +477,32 @@ const ElegantPromoBanner = () => {
         
         /* High contrast mode */
         @media (prefers-contrast: high) {
-          .banner-overlay {
+          .navbar-overlay {
             background: linear-gradient(135deg, 
-              rgba(0, 0, 0, 0.8), 
-              rgba(0, 0, 0, 0.9)
+              rgba(255, 255, 255, 0.95), 
+              rgba(255, 255, 255, 0.98)
             );
           }
           
-          .elegant-cta {
+          .navbar-cta {
             border: 2px solid white;
           }
         }
       `}</style>
-    </div>
+      
+      {/* Estilos globales para ajustar el body */}
+      <style jsx global>{`
+        body {
+          padding-top: 90px;
+        }
+        
+        @media (max-width: 768px) {
+          body {
+            padding-top: 110px;
+          }
+        }
+      `}</style>
+    </nav>
   );
 };
 

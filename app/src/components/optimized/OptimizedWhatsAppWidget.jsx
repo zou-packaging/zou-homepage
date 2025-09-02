@@ -97,20 +97,6 @@ const OptimizedWhatsAppWidget = () => {
         <div className="whatsapp-ripple-2"></div>
       </div>
 
-      {/* Punto adicional: Header WhatsApp Button */}
-      <div className="whatsapp-header-point">
-        <button 
-          className="header-whatsapp-btn"
-          onClick={() => handleWhatsAppClick('header')}
-          aria-label="Chat Now on WhatsApp"
-        >
-          <span className="header-icon">💬</span>
-          <span className="header-text">Chat Now on WhatsApp</span>
-        </button>
-      </div>
-
-
-
       <style jsx>{`
         /* Widget principal flotante */
         .whatsapp-widget {
@@ -155,44 +141,6 @@ const OptimizedWhatsAppWidget = () => {
           box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
           background: #128C7E; /* WhatsApp darker green on hover */
         }
-
-        /* Header point - Punto 2 */
-        .whatsapp-header-point {
-          position: fixed;
-          top: 20px;
-          right: 20px;
-          z-index: 999;
-        }
-
-        .header-whatsapp-btn {
-          background: #25D366;
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          border-radius: 25px;
-          font-weight: 600;
-          font-size: 0.9rem;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          transition: all 0.3s ease;
-          box-shadow: 0 2px 15px rgba(37, 211, 102, 0.3);
-          min-height: 44px;
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
-        .header-whatsapp-btn:hover {
-          background: #128C7E;
-          transform: translateY(-1px);
-          box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-        }
-
-        .header-icon {
-          font-size: 1.1rem;
-        }
-
-
 
         /* Tooltip optimizado */
         .whatsapp-tooltip {
@@ -348,18 +296,6 @@ const OptimizedWhatsAppWidget = () => {
             right: -10px;
             transform: translateX(0);
           }
-
-          .whatsapp-header-point {
-            top: 15px;
-            right: 15px;
-          }
-
-          .header-whatsapp-btn {
-            padding: 8px 16px;
-            font-size: 0.85rem;
-          }
-
-
         }
 
         /* Reduced motion */

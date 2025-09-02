@@ -1,6 +1,5 @@
 import './App.css'
 // Componentes optimizados nuevos
-import OptimizedNavigation from './components/optimized/OptimizedNavigation'
 import ElegantHero from './components/optimized/ElegantHero'
 import OptimizedWhatsAppWidget from './components/optimized/OptimizedWhatsAppWidget'
 import TrustedBySection from './components/optimized/TrustedBySection'
@@ -17,11 +16,8 @@ import Footer from './sections/footer/footer'
 function App() {
   return (
     <div className="App">
-      {/* Banner elegante con estética suave */}
+      {/* Navbar elegante dinámico (antes banner) */}
       <ElegantPromoBanner />
-      
-      {/* Navegación optimizada para Google Ads 2025 */}
-      <OptimizedNavigation />
       
       {/* Hero section con nueva estética elegante */}
       <section id="inicio">
