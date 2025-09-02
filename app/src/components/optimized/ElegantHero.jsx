@@ -4,7 +4,7 @@ const ElegantHero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Copy optimizado con estética elegante
+  // Copy optimizado con estética elegante + imágenes dinámicas
   const heroSlides = [
     {
       headline: "Diseñados para usar,",
@@ -14,7 +14,9 @@ const ElegantHero = () => {
       cta: "Solicitar presupuesto",
       ctaIcon: "✨",
       secondaryCta: "Ver productos",
-      bgGradient: "linear-gradient(135deg, #FF9A8A, #FFA726)"
+      bgGradient: "linear-gradient(135deg, #FF9A8A, #FFA726)",
+      productImage: "/src/assets/productos/fullCollage.webp",
+      productAlt: "Colección completa de productos Zou Packaging"
     },
     {
       headline: "Packaging que cuida",
@@ -24,7 +26,9 @@ const ElegantHero = () => {
       cta: "Explorar opciones eco",
       ctaIcon: "🌱",
       secondaryCta: "Ver materiales",
-      bgGradient: "linear-gradient(135deg, #81C784, #4FD1C7)"
+      bgGradient: "linear-gradient(135deg, #81C784, #4FD1C7)",
+      productImage: "/src/assets/productos/fullBolsas.jpeg",
+      productAlt: "Colección de bolsas ecológicas y sustentables"
     },
     {
       headline: "Tu identidad visual",
@@ -34,7 +38,33 @@ const ElegantHero = () => {
       cta: "Crear mi identidad",
       ctaIcon: "🎨",
       secondaryCta: "Ver portfolio",
-      bgGradient: "linear-gradient(135deg, #F48FB1, #EC407A)"
+      bgGradient: "linear-gradient(135deg, #F48FB1, #EC407A)",
+      productImage: "/src/assets/productos/fullCajas.jpg",
+      productAlt: "Variedad de cajas personalizadas para tu marca"
+    },
+    {
+      headline: "Vasos únicos",
+      highlight: "para cada bebida",
+      endline: "especial.",
+      subtitle: "Desde café hasta smoothies, vasos diseñados para realzar la experiencia de tus clientes y fortalecer tu marca.",
+      cta: "Ver línea de vasos",
+      ctaIcon: "☕",
+      secondaryCta: "Consultar medidas",
+      bgGradient: "linear-gradient(135deg, #FF7043, #D84315)",
+      productImage: "/src/assets/productos/fullVasos.jpg",
+      productAlt: "Colección completa de vasos personalizados"
+    },
+    {
+      headline: "Experiencias completas",
+      highlight: "para cada momento",
+      endline: "especial.",
+      subtitle: "Cubiertos y accesorios que complementan la experiencia de tus clientes con elegancia y funcionalidad.",
+      cta: "Ver toda la línea",
+      ctaIcon: "🍴",
+      secondaryCta: "Consultar stock",
+      bgGradient: "linear-gradient(135deg, #9C27B0, #673AB7)",
+      productImage: "/src/assets/productos/fullCubiertos.jpg",
+      productAlt: "Cubiertos y accesorios para experiencias completas"
     }
   ];
 
@@ -42,10 +72,10 @@ const ElegantHero = () => {
     setIsVisible(true);
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 8000); // Más lento para mejor lectura
+    }, 5000); // Tiempo optimizado: 5 segundos
     
     return () => clearInterval(interval);
-  }, []);
+  }, [heroSlides.length]);
 
   // Función optimizada para conversión WhatsApp
   const handlePrimaryAction = useCallback(() => {
@@ -56,7 +86,9 @@ const ElegantHero = () => {
     const messages = [
       '✨ Hola! Me interesa el diseño personalizado para mi marca. Vi su página y me gustaría solicitar un presupuesto.',
       '🌱 Hola! Me interesa conocer sus opciones sustentables. ¿Podrían mostrarme los materiales eco-friendly disponibles?',
-      '🎨 Hola! Me interesa crear una identidad visual fuerte para mi negocio. ¿Podrían ayudarme con el diseño?'
+      '🎨 Hola! Me interesa crear una identidad visual fuerte para mi negocio. ¿Podrían ayudarme con el diseño?',
+      '☕ Hola! Me interesan los vasos personalizados para mi negocio. ¿Podrían mostrarme la línea completa y medidas disponibles?',
+      '🍴 Hola! Me interesan los cubiertos y accesorios para complementar la experiencia de mis clientes. ¿Qué opciones tienen disponibles?'
     ];
     
     const message = messages[currentSlide];
@@ -79,6 +111,8 @@ const ElegantHero = () => {
 
   const handleSecondaryAction = useCallback(() => {
     const actions = [
+      () => document.getElementById('categorias')?.scrollIntoView({ behavior: 'smooth' }),
+      () => document.getElementById('categorias')?.scrollIntoView({ behavior: 'smooth' }),
       () => document.getElementById('categorias')?.scrollIntoView({ behavior: 'smooth' }),
       () => document.getElementById('categorias')?.scrollIntoView({ behavior: 'smooth' }),
       () => document.getElementById('categorias')?.scrollIntoView({ behavior: 'smooth' })
@@ -157,22 +191,20 @@ const ElegantHero = () => {
             <div className="elegant-circle circle-3"></div>
           </div>
           
-          {/* Iconos de productos reales en espiral */}
-          <div className="product-icons-spiral">
-            <div className="product-icon-item icon-1">
-              <img src="/src/assets/productos/vasoDeCafe.jpg" alt="Vaso de café personalizado" className="product-image" />
-            </div>
-            
-            <div className="product-icon-item icon-2">
-              <img src="/src/assets/productos/cajaSimple.jpg" alt="Caja de packaging sustentable" className="product-image" />
-            </div>
-            
-            <div className="product-icon-item icon-3">
-              <img src="/src/assets/productos/bolsaSimple.png" alt="Bolsa ecológica personalizada" className="product-image" />
-            </div>
-            
-            <div className="product-icon-item icon-4">
-              <img src="/src/assets/productos/caja-pasteles.png" alt="Caja para pasteles" className="product-image" />
+          {/* Showcase de productos con imágenes dinámicas */}
+          <div className="product-showcase">
+            <div className="showcase-container">
+              <div className="showcase-image-wrapper">
+                <img 
+                  src={currentSlideData.productImage} 
+                  alt={currentSlideData.productAlt} 
+                  className="packaging-collage" 
+                  key={currentSlide} // For smooth transitions
+                />
+                <div className="showcase-overlay">
+                  <span className="showcase-label">Nuestros Productos</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -383,8 +415,8 @@ const ElegantHero = () => {
         }
 
         .circle-1 {
-          width: 120px;
-          height: 120px;
+          width: 160px;
+          height: 160px;
           background: linear-gradient(135deg, #FF9A8A, #FFA726);
           top: 10%;
           right: 20%;
@@ -392,8 +424,8 @@ const ElegantHero = () => {
         }
 
         .circle-2 {
-          width: 80px;
-          height: 80px;
+          width: 120px;
+          height: 120px;
           background: linear-gradient(135deg, #F48FB1, #EC407A);
           bottom: 30%;
           left: 10%;
@@ -401,8 +433,8 @@ const ElegantHero = () => {
         }
 
         .circle-3 {
-          width: 100px;
-          height: 100px;
+          width: 140px;
+          height: 140px;
           background: linear-gradient(135deg, #81C784, #4FD1C7);
           top: 50%;
           right: 10%;
@@ -419,77 +451,85 @@ const ElegantHero = () => {
           gap: 24px;
         }
         
-        .product-icons-spiral {
+        .product-showcase {
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
           bottom: 0;
-          pointer-events: none;
-        }
-        
-        .product-icon-item {
-          position: absolute;
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: all 0.4s ease;
-          cursor: pointer;
+          pointer-events: none;
+        }
+        
+        .showcase-container {
+          position: relative;
+          animation: floatShowcase 6s ease-in-out infinite;
           pointer-events: auto;
-          animation: floatProduct 4s ease-in-out infinite;
-          width: 120px;
-          height: 120px;
-          border-radius: 20px;
-          background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8));
-          box-shadow: 0 12px 35px rgba(0,0,0,0.12), 0 4px 15px rgba(0,0,0,0.06);
-          backdrop-filter: blur(15px);
-          border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+        
+        .showcase-image-wrapper {
+          position: relative;
+          width: 380px;
+          height: 340px;
+          border-radius: 25px;
+          overflow: hidden;
+          background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+          box-shadow: 
+            0 25px 60px rgba(0,0,0,0.15),
+            0 10px 25px rgba(0,0,0,0.08),
+            inset 0 1px 0 rgba(255,255,255,0.8);
+          backdrop-filter: blur(20px);
+          border: 2px solid rgba(255, 255, 255, 0.6);
+          transition: all 0.5s ease;
+          cursor: pointer;
           transform-style: preserve-3d;
         }
         
-        .product-icon-item:hover {
-          transform: translateY(-12px) scale(1.08) rotateY(5deg);
-          box-shadow: 0 20px 45px rgba(0,0,0,0.18), 0 8px 25px rgba(0,0,0,0.1);
+        .showcase-image-wrapper:hover {
+          transform: translateY(-10px) scale(1.03) rotateX(2deg) rotateY(2deg);
+          box-shadow: 
+            0 35px 80px rgba(0,0,0,0.2),
+            0 15px 35px rgba(0,0,0,0.12),
+            inset 0 1px 0 rgba(255,255,255,0.9);
         }
         
-        .product-image {
-          width: 90px;
-          height: 90px;
+        .packaging-collage {
+          width: 100%;
+          height: 100%;
           object-fit: cover;
-          border-radius: 15px;
-          transition: all 0.4s ease;
-          filter: brightness(1.05) saturate(1.1) contrast(1.05);
-          box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+          transition: all 0.8s ease-in-out;
+          filter: brightness(1.05) saturate(1.1) contrast(1.02);
+          animation: fadeInImage 0.8s ease-in-out;
         }
         
-        .product-icon-item:hover .product-image {
-          filter: brightness(1.15) saturate(1.25) contrast(1.1);
+        .showcase-image-wrapper:hover .packaging-collage {
+          filter: brightness(1.1) saturate(1.15) contrast(1.05);
           transform: scale(1.02);
         }
         
-        /* Posicionamiento centralizado entre círculos */
-        .icon-1 { 
-          top: 25%; 
-          right: 35%; 
-          animation-delay: 0s; 
+        .showcase-overlay {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.3), transparent);
+          padding: 20px;
+          transform: translateY(100%);
+          transition: all 0.4s ease;
         }
         
-        .icon-2 { 
-          top: 55%; 
-          right: 15%; 
-          animation-delay: 1s; 
+        .showcase-image-wrapper:hover .showcase-overlay {
+          transform: translateY(0);
         }
         
-        .icon-3 { 
-          bottom: 35%; 
-          right: 40%; 
-          animation-delay: 2s; 
-        }
-        
-        .icon-4 { 
-          bottom: 25%; 
-          left: 25%; 
-          animation-delay: 0.5s; 
+        .showcase-label {
+          color: white;
+          font-size: 1.1rem;
+          font-weight: 600;
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+          text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
 
@@ -585,15 +625,26 @@ const ElegantHero = () => {
           }
         }
         
-        @keyframes floatProduct {
+        @keyframes fadeInImage {
+          0% {
+            opacity: 0;
+            transform: scale(1.05);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        
+        @keyframes floatShowcase {
           0%, 100% { 
             transform: translateY(0px) rotate(0deg); 
           }
           33% { 
-            transform: translateY(-8px) rotate(1deg); 
+            transform: translateY(-12px) rotate(1deg); 
           }
           66% { 
-            transform: translateY(-4px) rotate(-1deg); 
+            transform: translateY(-8px) rotate(-0.5deg); 
           }
         }
         
@@ -651,39 +702,22 @@ const ElegantHero = () => {
             right: 10%;
           }
           
-          .product-icons-spiral {
+          .product-showcase {
             position: relative;
-            height: 150px;
+            height: 250px;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
           }
           
-          .product-icon-item {
-            position: relative !important;
-            display: inline-flex;
+          .showcase-image-wrapper {
+            width: 240px;
+            height: 210px;
+            border-radius: 20px;
           }
           
-          /* Reset positioning for mobile */
-          .icon-1, .icon-2, .icon-3, .icon-4 { 
-            top: auto !important;
-            right: auto !important;
-            bottom: auto !important;
-            left: auto !important;
-          }
-          
-          .product-icon-item {
-            width: 100px;
-            height: 100px;
-            position: relative !important;
-            display: inline-flex;
-          }
-          
-          .product-image {
-            width: 75px;
-            height: 75px;
+          .showcase-label {
+            font-size: 0.9rem;
           }
 
           .feature-card {

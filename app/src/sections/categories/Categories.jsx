@@ -17,7 +17,8 @@ const Categories = () => {
         "Vasos personalizados"
       ],
       badge: "Más popular",
-      color: "#25d366"
+      color: "#25d366",
+      backgroundImage: "/src/assets/productos/fullVasos.jpg"
     },
     {
       id: 2,
@@ -31,7 +32,8 @@ const Categories = () => {
         "Bandejas apilables"
       ],
       badge: "Envío gratis",
-      color: "#ff6b35"
+      color: "#ff6b35",
+      backgroundImage: "/src/assets/productos/fullCajas.jpg"
     },
     {
       id: 3,
@@ -45,7 +47,8 @@ const Categories = () => {
         "Bolsas compostables"
       ],
       badge: "100% Eco",
-      color: "#28a745"
+      color: "#28a745",
+      backgroundImage: "/src/assets/productos/fullBolsas.jpeg"
     },
     {
       id: 4,
@@ -59,7 +62,8 @@ const Categories = () => {
         "Kits personalizados"
       ],
       badge: "Nuevo",
-      color: "#17a2b8"
+      color: "#17a2b8",
+      backgroundImage: "/src/assets/productos/fullCubiertos.jpg"
     }
   ];
 
@@ -101,7 +105,17 @@ const Categories = () => {
               onMouseEnter={() => setHoveredCategory(category.id)}
               onMouseLeave={() => setHoveredCategory(null)}
               onClick={() => handleCategoryClick(category)}
+              style={{
+                backgroundImage: `url(${category.backgroundImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                filter: 'opacity(0.9)'
+              }}
             >
+              {/* Background Overlay para legibilidad */}
+              <div className="category-overlay"></div>
+              
               {/* Badge */}
               <div 
                 className="category-badge"

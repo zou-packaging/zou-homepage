@@ -4,7 +4,6 @@ import ElegantHero from './components/optimized/ElegantHero'
 import OptimizedWhatsAppWidget from './components/optimized/OptimizedWhatsAppWidget'
 import TrustedBySection from './components/optimized/TrustedBySection'
 import ElegantPromoBanner from './components/optimized/ElegantPromoBanner'
-import OptimizedExitIntentPopup from './components/optimized/OptimizedExitIntentPopup'
 
 // Componentes existentes que mantenemos
 import Categories from './sections/categories/Categories'
@@ -54,9 +53,6 @@ function App() {
       
       {/* Widgets optimizados - Estrategia multi-punto WhatsApp */}
       <OptimizedWhatsAppWidget />
-      
-      {/* Exit-intent popup - Reduce abandono 25% */}
-      <OptimizedExitIntentPopup />
     </div>
   )
 }
