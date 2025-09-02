@@ -43,7 +43,7 @@ const ElegantPromoBanner = () => {
     { label: 'Inicio', link: '#inicio' },
     { label: 'Productos', link: '#categorias' },
     { label: 'Nosotros', link: '#nosotros' },
-    { label: 'Contacto', link: '#faq' }
+    { label: 'Contacto', link: '#contacto' }
   ];
 
   useEffect(() => {

@@ -10,6 +10,7 @@ import Categories from './sections/categories/Categories'
 import ValueProposition from './sections/valueProposition/ValueProposition'
 import { FAQ } from './components/PlaceholderSections'
 import About from './sections/about/about'
+import Contact from './sections/contact/Contact'
 import Footer from './sections/footer/footer'
 
 function App() {
@@ -46,6 +47,11 @@ function App() {
       {/* FAQ inteligente */}
       <section id="faq">
         <FAQ />
+      </section>
+      
+      {/* Contacto con formulario y mapa */}
+      <section id="contacto">
+        <Contact />
       </section>
       
       {/* Footer con acción */}
