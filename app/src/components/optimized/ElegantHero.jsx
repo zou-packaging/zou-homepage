@@ -77,25 +77,34 @@ const ElegantHero = () => {
     return () => clearInterval(interval);
   }, [heroSlides.length]);
 
-  // Función optimizada para conversión WhatsApp
+  // Función optimizada para conversión WhatsApp - MÚLTIPLES ESTRATEGIAS
   const handlePrimaryAction = useCallback(() => {
     const phoneNumber = '5493512341463';
-    const currentSlideData = heroSlides[currentSlide];
     
-    // Mensaje personalizado según slide actual
+    // Mensajes más cortos y simples
     const messages = [
-      '✨ Hola! Me interesa el diseño personalizado para mi marca. Vi su página y me gustaría solicitar un presupuesto.',
-      '🌱 Hola! Me interesa conocer sus opciones sustentables. ¿Podrían mostrarme los materiales eco-friendly disponibles?',
-      '🎨 Hola! Me interesa crear una identidad visual fuerte para mi negocio. ¿Podrían ayudarme con el diseño?',
-      '☕ Hola! Me interesan los vasos personalizados para mi negocio. ¿Podrían mostrarme la línea completa y medidas disponibles?',
-      '🍴 Hola! Me interesan los cubiertos y accesorios para complementar la experiencia de mis clientes. ¿Qué opciones tienen disponibles?'
+      'Hola! Me interesa diseño personalizado.',
+      'Hola! Me interesan opciones sustentables.',
+      'Hola! Me interesa identidad visual.',
+      'Hola! Me interesan vasos personalizados.',
+      'Hola! Me interesan cubiertos y accesorios.'
     ];
     
     const message = messages[currentSlide];
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     
-    // Enhanced tracking para Google Ads
+    // Estrategia múltiple para WhatsApp
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    let whatsappUrl;
+    if (isMobile) {
+      // En móvil: usar whatsapp://
+      whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+    } else {
+      // En desktop: usar wa.me sin texto primero
+      whatsappUrl = `https://wa.me/${phoneNumber}`;
+    }
+    
+    // Tracking
     if (typeof gtag !== 'undefined') {
       gtag('event', 'conversion', {
         send_to: 'AW-CONVERSION_ID/Hero_WhatsApp_Lead',
@@ -107,6 +116,19 @@ const ElegantHero = () => {
     }
     
     window.open(whatsappUrl, '_blank');
+    
+    // Si es desktop, mostrar mensaje para copiar
+    if (!isMobile) {
+      setTimeout(() => {
+        if (confirm('¿El chat no se abrió con el mensaje? Haz clic en OK para copiar el mensaje y pegarlo manualmente.')) {
+          navigator.clipboard.writeText(message).then(() => {
+            alert('Mensaje copiado! Pégalo en el chat de WhatsApp.');
+          }).catch(() => {
+            prompt('Copia este mensaje:', message);
+          });
+        }
+      }, 2000);
+    }
   }, [currentSlide]);
 
   const handleSecondaryAction = useCallback(() => {

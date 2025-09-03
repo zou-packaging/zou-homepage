@@ -69,9 +69,19 @@ const Categories = () => {
 
   const handleCategoryClick = (category) => {
     const phoneNumber = '5493512341463';
-    const message = `¡Hola! Me interesa conocer más sobre la categoría "${category.name}". ¿Podrían enviarme información sobre estos productos?\n\n${category.products.map(product => `• ${product}`).join('\n')}\n\n¡Gracias!`;
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+    // Mensaje muy simple
+    const message = `Hola! Me interesa ${category.name}.`;
+    
+    // Estrategia múltiple para WhatsApp
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    let whatsappUrl;
+    if (isMobile) {
+      whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+    } else {
+      whatsappUrl = `https://wa.me/${phoneNumber}`;
+    }
     
     // Track category selection
     if (typeof gtag !== 'undefined') {
@@ -83,6 +93,20 @@ const Categories = () => {
     }
     
     window.open(whatsappUrl, '_blank');
+    
+    // Si es desktop, ofrecer copiar mensaje
+    if (!isMobile) {
+      setTimeout(() => {
+        const fullMessage = `Hola! Me interesa ${category.name}. Productos: ${category.products.join(', ')}.`;
+        if (confirm('¿El mensaje no apareció? Clic OK para copiarlo.')) {
+          navigator.clipboard.writeText(fullMessage).then(() => {
+            alert('Mensaje copiado!');
+          }).catch(() => {
+            prompt('Copia este mensaje:', fullMessage);
+          });
+        }
+      }, 2000);
+    }
   };
 
   return (

@@ -24,22 +24,19 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const whatsappMessage = `🌟 *NUEVO CONTACTO - ZOU PACKAGING*
-
-👤 *Nombre:* ${formData.nombre}
-📧 *Correo:* ${formData.correo}
-📱 *Teléfono:* ${formData.telefono}
-
-💬 *Mensaje:*
-${formData.mensaje}
-
-📅 *Enviado:* ${new Date().toLocaleString('es-AR')}
-
-¡Gracias por contactarnos! Te responderemos a la brevedad.`;
+    const message = `Hola! Soy ${formData.nombre}. Correo: ${formData.correo}. Tel: ${formData.telefono}. Mensaje: ${formData.mensaje}`;
 
     const phoneNumber = '5493512341463';
-    const encodedMessage = encodeURIComponent(whatsappMessage);
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+    // Estrategia múltiple para WhatsApp
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    let whatsappUrl;
+    if (isMobile) {
+      whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+    } else {
+      whatsappUrl = `https://wa.me/${phoneNumber}`;
+    }
 
     if (typeof gtag !== 'undefined') {
       gtag('event', 'conversion', {
@@ -62,6 +59,19 @@ ${formData.mensaje}
         telefono: '',
         mensaje: ''
       });
+      
+      // Si es desktop, ofrecer copiar mensaje
+      if (!isMobile) {
+        setTimeout(() => {
+          if (confirm('¿El mensaje no apareció? Haz clic en OK para copiarlo.')) {
+            navigator.clipboard.writeText(message).then(() => {
+              alert('Mensaje copiado! Pégalo en WhatsApp.');
+            }).catch(() => {
+              prompt('Copia este mensaje:', message);
+            });
+          }
+        }, 2000);
+      }
       
       setTimeout(() => setSubmitMessage(''), 5000);
     }, 1000);
