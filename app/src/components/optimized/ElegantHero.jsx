@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
+// Importar imágenes correctamente
+import fullCollage from '../../assets/productos/fullCollage.webp';
+import fullBolsas from '../../assets/productos/fullBolsas.jpeg';
+import fullCajas from '../../assets/productos/fullCajas.jpg';
+import fullVasos from '../../assets/productos/fullVasos.jpg';
+import fullCubiertos from '../../assets/productos/fullCubiertos.jpg';
+import packagingVarios from '../../assets/productos/packagingVarios.jpg';
+
 const ElegantHero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -15,7 +23,7 @@ const ElegantHero = () => {
       ctaIcon: "✨",
       secondaryCta: "Ver productos",
       bgGradient: "linear-gradient(135deg, #FF9A8A, #FFA726)",
-      productImage: "/src/assets/productos/fullCollage.webp",
+      productImage: fullCollage,
       productAlt: "Colección completa de productos Zou Packaging"
     },
     {
@@ -27,7 +35,7 @@ const ElegantHero = () => {
       ctaIcon: "🌱",
       secondaryCta: "Ver materiales",
       bgGradient: "linear-gradient(135deg, #81C784, #4FD1C7)",
-      productImage: "/src/assets/productos/fullBolsas.jpeg",
+      productImage: fullBolsas,
       productAlt: "Colección de bolsas ecológicas y sustentables"
     },
     {
@@ -39,7 +47,7 @@ const ElegantHero = () => {
       ctaIcon: "🎨",
       secondaryCta: "Ver portfolio",
       bgGradient: "linear-gradient(135deg, #F48FB1, #EC407A)",
-      productImage: "/src/assets/productos/fullCajas.jpg",
+      productImage: fullCajas,
       productAlt: "Variedad de cajas personalizadas para tu marca"
     },
     {
@@ -51,7 +59,7 @@ const ElegantHero = () => {
       ctaIcon: "☕",
       secondaryCta: "Consultar medidas",
       bgGradient: "linear-gradient(135deg, #FF7043, #D84315)",
-      productImage: "/src/assets/productos/fullVasos.jpg",
+      productImage: fullVasos,
       productAlt: "Colección completa de vasos personalizados"
     },
     {
@@ -63,7 +71,7 @@ const ElegantHero = () => {
       ctaIcon: "🍴",
       secondaryCta: "Consultar stock",
       bgGradient: "linear-gradient(135deg, #9C27B0, #673AB7)",
-      productImage: "/src/assets/productos/fullCubiertos.jpg",
+      productImage: fullCubiertos,
       productAlt: "Cubiertos y accesorios para experiencias completas"
     }
   ];
@@ -282,7 +290,7 @@ const ElegantHero = () => {
           left: 0;
           right: 0;
           bottom: 0;
-          background-image: url('/src/assets/productos/packagingVarios.jpg');
+          background-image: url(${packagingVarios});
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
