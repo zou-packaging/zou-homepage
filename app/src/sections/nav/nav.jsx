@@ -9,6 +9,30 @@ const Nav = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleNavClick = (e) => {
+    e.preventDefault();
+    const targetId = e.currentTarget.getAttribute('href').substring(1);
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+    if (isMenuOpen) {
+      toggleMenu();
+    }
+  };
+
+  const handleBudgetClick = () => {
+    const phoneNumber = '5493512341463';
+    const message = 'Hola, quisiera solicitar un presupuesto.';
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <nav className="navbar">
       <div className="nav-container">
@@ -20,22 +44,22 @@ const Nav = () => {
         {/* Navigation Links */}
         <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
           <li className="nav-item">
-            <a href="#nosotros" className="nav-link">
+            <a href="#nosotros" className="nav-link" onClick={handleNavClick}>
               Nosotros
             </a>
           </li>
           <li className="nav-item">
-            <a href="#productos" className="nav-link">
+            <a href="#home" className="nav-link" onClick={handleNavClick}>
               Productos
             </a>
           </li>
           <li className="nav-item">
-            <a href="#clientes" className="nav-link">
+            <a href="#clientes" className="nav-link" onClick={handleNavClick}>
               Clientes
             </a>
           </li>
           <li className="nav-item">
-            <a href="#contacto" className="nav-link">
+            <a href="#contacto" className="nav-link" onClick={handleNavClick}>
               Contacto
             </a>
           </li>
@@ -43,7 +67,7 @@ const Nav = () => {
 
         {/* CTA Button */}
         <div className="nav-cta">
-          <button className="cta-button">
+          <button className="cta-button" onClick={handleBudgetClick}>
             Solicitar presupuesto
           </button>
         </div>
