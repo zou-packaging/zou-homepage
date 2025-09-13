@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import './Categories.css';
 
+// Importar imágenes correctamente
+import fullVasos from '../../assets/productos/fullVasos.jpg';
+import fullCajas from '../../assets/productos/fullCajas.jpg';
+import fullBolsas from '../../assets/productos/fullBolsas.jpeg';
+import fullCubiertos from '../../assets/productos/fullCubiertos.jpg';
+
 const Categories = () => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
 
@@ -18,7 +24,7 @@ const Categories = () => {
       ],
       badge: "Más popular",
       color: "#25d366",
-      backgroundImage: "/src/assets/productos/fullVasos.jpg"
+      backgroundImage: fullVasos
     },
     {
       id: 2,
@@ -33,7 +39,7 @@ const Categories = () => {
       ],
       badge: "Envío gratis",
       color: "#ff6b35",
-      backgroundImage: "/src/assets/productos/fullCajas.jpg"
+      backgroundImage: fullCajas
     },
     {
       id: 3,
@@ -48,7 +54,7 @@ const Categories = () => {
       ],
       badge: "100% Eco",
       color: "#28a745",
-      backgroundImage: "/src/assets/productos/fullBolsas.jpeg"
+      backgroundImage: fullBolsas
     },
     {
       id: 4,
@@ -63,7 +69,7 @@ const Categories = () => {
       ],
       badge: "Nuevo",
       color: "#17a2b8",
-      backgroundImage: "/src/assets/productos/fullCubiertos.jpg"
+      backgroundImage: fullCubiertos
     }
   ];
 
