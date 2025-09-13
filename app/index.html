@@ -1,11 +1,84 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="./src/assets/nav/zouLogo.png" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Preconnects para performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    
+    <!-- Google Fonts optimizado -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Zou Packaging</title>
+    
+    <!-- SEO Optimizado -->
+    <title>Zou Packaging - Packaging Sustentable Premium | Entrega 24-48hs</title>
+    <meta name="description" content="Packaging sustentable y personalizado para tu marca. Vasos, bolsas y contenedores biodegradables. Entrega express 24-48hs. ISO 9001 certificado. ¡Cotización gratis!" />
+    <meta name="keywords" content="packaging sustentable, vasos biodegradables, bolsas ecológicas, contenedores compostables, packaging personalizado, zou packaging" />
+    
+    <!-- Open Graph para redes sociales -->
+    <meta property="og:title" content="Zou Packaging - Packaging Sustentable Premium" />
+    <meta property="og:description" content="Packaging sustentable y personalizado para tu marca. Entrega express 24-48hs. ¡Cotización gratis!" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    
+    <!-- Google Analytics - Reemplazar con ID real -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GA_MEASUREMENT_ID');
+      
+      // Enhanced Conversions setup para Google Ads
+      gtag('config', 'AW-CONVERSION_ID', {
+        allow_enhanced_conversions: true
+      });
+    </script>
+    
+    <!-- Facebook Pixel - Reemplazar con ID real -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', 'FACEBOOK_PIXEL_ID');
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <!-- <img height="1" width="1" style="display:none" src="facebook.com" /> -->
+    </noscript>
+    
+    <!-- Schema.org para SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Zou Packaging",
+      "description": "Packaging sustentable y personalizado para empresas",
+      "url": "https://zou-packaging.com",
+      "logo": "https://zou-packaging.com/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+54-9-351-234-1463",
+        "contactType": "sales",
+        "availableLanguage": "Spanish"
+      },
+      "sameAs": [
+        "https://www.instagram.com/zou.packaging",
+        "https://wa.me/5493512341463"
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
