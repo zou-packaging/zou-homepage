@@ -1,78 +1,259 @@
 import React, { useState } from 'react';
-import './contact.css';
+import './Contact.css';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
+    nombre: '',
+    correo: '',
+    telefono: '',
+    mensaje: ''
   });
 
-  const handleChange = (e) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const phoneNumber = '5493512341463'; // Número de WhatsApp de destino
-    const { name, email, phone, message } = formData;
-    const text = `Hola, mi nombre es ${name}. Mi correo es ${email} y mi teléfono es ${phone}. Te escribo por el siguiente motivo: ${message}`;
-    const encodedText = encodeURIComponent(text);
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedText}`;
-    window.open(whatsappUrl, '_blank');
+    setIsSubmitting(true);
+
+    const message = `Hola! Soy ${formData.nombre}. Correo: ${formData.correo}. Tel: ${formData.telefono}. Mensaje: ${formData.mensaje}`;
+
+    const phoneNumber = '5493512341463';
+    
+    // Estrategia múltiple para WhatsApp
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    let whatsappUrl;
+    if (isMobile) {
+      whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+    } else {
+      whatsappUrl = `https://wa.me/${phoneNumber}`;
+    }
+
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'conversion', {
+        send_to: 'AW-CONVERSION_ID/Contact_Form_Submit',
+        event_category: 'Contact',
+        event_label: 'form_contact',
+        value: 1,
+        currency: 'ARS'
+      });
+    }
+
+    setTimeout(() => {
+      window.open(whatsappUrl, '_blank');
+      setSubmitMessage('¡Mensaje enviado! Te contactaremos pronto.');
+      setIsSubmitting(false);
+      
+      setFormData({
+        nombre: '',
+        correo: '',
+        telefono: '',
+        mensaje: ''
+      });
+      
+      // Si es desktop, ofrecer copiar mensaje
+      if (!isMobile) {
+        setTimeout(() => {
+          if (confirm('¿El mensaje no apareció? Haz clic en OK para copiarlo.')) {
+            navigator.clipboard.writeText(message).then(() => {
+              alert('Mensaje copiado! Pégalo en WhatsApp.');
+            }).catch(() => {
+              prompt('Copia este mensaje:', message);
+            });
+          }
+        }, 2000);
+      }
+      
+      setTimeout(() => setSubmitMessage(''), 5000);
+    }, 1000);
   };
 
   return (
     <section className="contact-section" id="contacto">
       <div className="contact-container">
+        <div className="contact-header">
+          <h2 className="contact-title">Contacto</h2>
+          <p className="contact-subtitle">
+            Estamos aquí para ayudarte. Contáctanos y empecemos a trabajar juntos.
+          </p>
+        </div>
+
         <div className="contact-content">
-          <div className="contact-info-container">
-            <h2 className="contact-title">Dónde estamos</h2>
-            <div className="contact-info">
-              <p><strong>Dirección:</strong><br/>Entre Ríos 2874<br/>X5006 Córdoba</p>
-              <p><strong>Móvil:</strong><br/>3512341463</p>
-              <p><strong>Horario de atención:</strong><br/>lunes a viernes 8.30 a 18 hs</p>
-              <p><strong>Formas de pago:</strong><br/>Aceptamos todas las tarjetas.<br/>Efectivo</p>
+          <div className="contact-info-section">
+            <div className="contact-info-card">
+              <h3 className="info-title">Dónde estamos</h3>
+              
+              <div className="info-item">
+                <div className="info-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <div className="info-content">
+                  <span className="info-label">Dirección:</span>
+                  <span className="info-value">Entre Ríos 2874<br />X5006 Córdoba</span>
+                </div>
+              </div>
+
+              <div className="info-item">
+                <div className="info-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                </div>
+                <div className="info-content">
+                  <span className="info-label">Móvil:</span>
+                  <span className="info-value">351 234 1463</span>
+                </div>
+              </div>
+
+              <div className="info-item">
+                <div className="info-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12,6 12,12 16,14"/>
+                  </svg>
+                </div>
+                <div className="info-content">
+                  <span className="info-label">Horario de atención:</span>
+                  <span className="info-value">Lunes a viernes 8.30 a 18 hs</span>
+                </div>
+              </div>
+
+              <div className="info-item">
+                <div className="info-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </div>
+                <div className="info-content">
+                  <span className="info-label">Formas de pago:</span>
+                  <span className="info-value">Aceptamos todas las tarjetas.<br />Efectivo</span>
+                </div>
+              </div>
+
+              <div className="map-container">
+                <div className="map-header">
+                  <h4>Nuestra ubicación</h4>
+                  <p>Encuéntranos fácilmente</p>
+                </div>
+                <div className="map-frame">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3404.4662644862887!2d-64.17989708518824!3d-31.418739281404157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432985f478f5b69%3A0x88d5b238de9ea33b!2sEntre%20R%C3%ADos%202874%2C%20X5006%20C%C3%B3rdoba!5e0!3m2!1ses!2sar!4v1647234567890!5m2!1ses!2sar"
+                    width="100%"
+                    height="200"
+                    style={{ border: 0, borderRadius: '12px' }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Ubicación Zou Packaging"
+                  ></iframe>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="contact-form-container">
-            <h2 className="contact-title">Formulario de contacto</h2>
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="name">Nombre:</label>
-                <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email">Correo:</label>
-                <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
-              </div>
-              <div className="form-group">
-                <label htmlFor="phone">Teléfono</label>
-                <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="message">Mensaje:</label>
-                <textarea id="message" name="message" rows="4" value={formData.message} onChange={handleChange} required></textarea>
-              </div>
-              <button type="submit" className="submit-button">Enviar mensaje</button>
-            </form>
+
+          <div className="contact-form-section">
+            <div className="contact-form-card">
+              <h3 className="form-title">Formulario de contacto</h3>
+              <p className="form-subtitle">
+                Completa el formulario y te responderemos a la brevedad
+              </p>
+
+              {submitMessage && (
+                <div className="submit-success">
+                  <div className="success-icon">✓</div>
+                  <p>{submitMessage}</p>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="contact-form">
+                <div className="form-group">
+                  <label htmlFor="nombre">Nombre:</label>
+                  <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    value={formData.nombre}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="Tu nombre completo"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="correo">Correo:</label>
+                  <input
+                    type="email"
+                    id="correo"
+                    name="correo"
+                    value={formData.correo}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="tu@email.com"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="telefono">Teléfono:</label>
+                  <input
+                    type="tel"
+                    id="telefono"
+                    name="telefono"
+                    value={formData.telefono}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="+54 9 351 234 1463"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="mensaje">Mensaje:</label>
+                  <textarea
+                    id="mensaje"
+                    name="mensaje"
+                    value={formData.mensaje}
+                    onChange={handleInputChange}
+                    required
+                    rows="5"
+                    placeholder="Contanos en qué podemos ayudarte..."
+                  ></textarea>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`submit-button ${isSubmitting ? 'submitting' : ''}`}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="loading-spinner"></div>
+                      Enviando...
+                    </>
+                  ) : (
+                    <>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M22 2L11 13"/>
+                        <polygon points="22,2 15,22 11,13 2,9"/>
+                      </svg>
+                      Enviar mensaje
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
-        <div className="contact-map">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2655.4253393637355!2d-64.14736882!3d-31.42462724!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432bd5c465f2b85%3A0x7b6ded8be2708b6a!2sZOU%20Packaging!5e1!3m2!1ses!2sar!4v1755364286683!5m2!1ses!2sar" 
-            width="100%" 
-            height="450" 
-            style={{ border: 0 }} 
-            allowFullScreen="" 
-            loading="lazy" 
-            referrerPolicy="no-referrer-when-downgrade">
-          </iframe>
         </div>
       </div>
     </section>
