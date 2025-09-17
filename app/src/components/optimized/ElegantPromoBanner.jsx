@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 const ElegantPromoBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const phoneNumber = '5493512341463';
 
@@ -59,6 +60,15 @@ const ElegantPromoBanner = () => {
     };
   }, []);
 
+  // Accesibilidad: cerrar con ESC
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') setDrawerOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
+
   const handleSectionClick = useCallback(() => {
     const section = navSections[currentSection];
     const encodedMessage = encodeURIComponent(section.message);
@@ -77,6 +87,7 @@ const ElegantPromoBanner = () => {
     
     window.open(whatsappUrl, '_blank');
   }, [currentSection, phoneNumber]);
+
 
   const handleMenuClick = useCallback((link) => {
     const element = document.querySelector(link);
@@ -101,6 +112,19 @@ const ElegantPromoBanner = () => {
           <span className="logo-text">Zou</span>
           <span className="logo-subtitle">Packaging</span>
         </div>
+        
+        {/* Botón hamburguesa (solo móviles) */}
+        <button
+          className="navbar-hamburger"
+          aria-label="Abrir menú"
+          onClick={() => setDrawerOpen(true)}
+        >
+          <span className="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
         
         {/* Menú tradicional (desktop) */}
         <div className="navbar-menu">
@@ -140,6 +164,66 @@ const ElegantPromoBanner = () => {
           </div>
         </div>
       </div>
+
+      {/* Drawer lateral para móviles */}
+      {drawerOpen && (
+        <div
+          className="navbar-drawer-overlay"
+          onClick={() => setDrawerOpen(false)}
+        />
+      )}
+      <aside className={`navbar-drawer${drawerOpen ? ' open' : ''}`}>
+        <button
+          className="drawer-close"
+          aria-label="Cerrar menú"
+          onClick={() => setDrawerOpen(false)}
+        >
+          &times;
+        </button>
+        <div className="drawer-scroll">
+          <div className="drawer-logo">
+            <span className="logo-text">Zou</span>
+            <span className="logo-subtitle">Packaging</span>
+          </div>
+          <div className="drawer-menu">
+            {menuItems.map((item, index) => (
+              <button
+                key={index}
+                className="drawer-menu-item"
+                onClick={() => {
+                  handleMenuClick(item.link);
+                  setDrawerOpen(false);
+                }}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+          <div className="drawer-sections">
+            {navSections.map((section, idx) => (
+              <div key={idx} className="drawer-section">
+                <span className="drawer-section-icon">{section.icon}</span>
+                <div className="drawer-section-text">
+                  <span className="drawer-section-title">{section.title}</span>
+                  <span className="drawer-section-subtitle">{section.subtitle}</span>
+                </div>
+                <button
+                  className="drawer-section-cta"
+                  style={{ background: section.bgGradient }}
+                  onClick={() => {
+                    const encodedMessage = encodeURIComponent(section.message);
+                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+                    window.open(whatsappUrl, '_blank');
+                    setDrawerOpen(false);
+                  }}
+                >
+                  {section.cta}
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </aside>
 
       <style jsx>{`
         .elegant-navbar {
@@ -235,6 +319,32 @@ const ElegantPromoBanner = () => {
           gap: 32px;
           flex-shrink: 0;
         }
+
+        /* Botón hamburguesa */
+        .navbar-hamburger {
+          display: none;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 8px;
+          position: absolute;
+          right: calc(16px + env(safe-area-inset-right, 0px));
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 4;
+        }
+        .hamburger-icon {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+        .hamburger-icon span {
+          display: block;
+          width: 28px;
+          height: 3px;
+          background: #4fd1c7;
+          border-radius: 2px;
+        }
         
         .menu-item {
           background: none;
@@ -318,6 +428,112 @@ const ElegantPromoBanner = () => {
         .navbar-actions {
           flex-shrink: 0;
         }
+
+        /* Drawer lateral */
+        .navbar-drawer {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 82vw;
+          max-width: 360px;
+          height: 100vh;
+          background: #ffffff;
+          box-shadow: 2px 0 20px rgba(0,0,0,0.12);
+          z-index: 2000;
+          transform: translateX(-100%);
+          transition: transform 0.28s cubic-bezier(.4,0,.2,1);
+          display: flex;
+          flex-direction: column;
+          padding-top: calc(env(safe-area-inset-top, 0px) + 8px);
+          box-sizing: border-box;
+        }
+        .navbar-drawer.open {
+          transform: translateX(0);
+        }
+        .navbar-drawer-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0,0,0,0.18);
+          z-index: 1999;
+        }
+        .drawer-close {
+          background: none;
+          border: none;
+          font-size: 2rem;
+          color: #4fd1c7;
+          align-self: flex-end;
+          cursor: pointer;
+          padding: 8px 16px;
+        }
+        .drawer-scroll { overflow-y: auto; padding: 0 16px 16px 16px; }
+        .drawer-logo {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          margin: 4px 0 16px 0;
+        }
+        .drawer-menu {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          margin-bottom: 20px;
+        }
+        .drawer-menu-item {
+          background: none;
+          border: none;
+          color: #1f2937;
+          font-size: 1.05rem;
+          font-weight: 600;
+          cursor: pointer;
+          padding: 10px 8px;
+          border-radius: 8px;
+          text-align: left;
+          transition: background 0.2s;
+        }
+        .drawer-menu-item:hover {
+          background: rgba(79, 209, 199, 0.1);
+          color: #0f766e;
+        }
+        .drawer-sections {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+        .drawer-section {
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 8px;
+          padding: 12px 10px;
+          background: #ffffff;
+          border: 1px solid rgba(0,0,0,0.06);
+          border-radius: 12px;
+        }
+        .drawer-section-icon { display: none; }
+        .drawer-section-text { flex: 1; display: flex; flex-direction: column; order: 1; }
+        .drawer-section-title { font-weight: 800; font-size: 1.05rem; color: #111827; margin: 0; }
+        .drawer-section-subtitle { font-size: 0.9rem; color: #6b7280; margin-top: 2px; }
+        .drawer-section-cta {
+          background: linear-gradient(135deg, #FF9A8A, #FFA726);
+          color: #fff;
+          border: none;
+          padding: 6px 12px;
+          border-radius: 16px;
+          font-weight: 600;
+          font-size: 0.85rem;
+          cursor: pointer;
+          transition: background 0.2s;
+          white-space: nowrap;
+          order: 2;
+          align-self: flex-start;
+          margin-top: 4px;
+        }
+        .drawer-section-cta:hover {
+          background: linear-gradient(135deg, #FFA726, #FF9A8A);
+        }
         
         .navbar-cta {
           background: linear-gradient(135deg, #FF9A8A, #FFA726);
@@ -382,6 +598,7 @@ const ElegantPromoBanner = () => {
           .navbar-menu {
             display: none;
           }
+          .navbar-hamburger { display: block; }
           
           .navbar-content {
             gap: 20px;
