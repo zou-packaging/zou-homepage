@@ -1,28 +1,64 @@
 import './App.css'
-import Nav from './sections/nav/nav'
-import Home from './sections/home/home'
+// Componentes optimizados nuevos
+import ElegantHero from './components/optimized/ElegantHero'
+import OptimizedWhatsAppWidget from './components/optimized/OptimizedWhatsAppWidget'
+import TrustedBySection from './components/optimized/TrustedBySection'
+import ElegantPromoBanner from './components/optimized/ElegantPromoBanner'
+
+// Componentes existentes que mantenemos
+import Categories from './sections/categories/Categories'
+import ValueProposition from './sections/valueProposition/ValueProposition'
+import { FAQ } from './components/PlaceholderSections'
 import About from './sections/about/about'
-import Partners from './sections/partners/partners'
-import Contact from './sections/contact/contact'
+import Contact from './sections/contact/Contact'
 import Footer from './sections/footer/footer'
-import WhatsApp from './components/whatsapp/whatsapp'
 
 function App() {
   return (
     <div className="App">
-      <Nav />
-      <div id="home">
-        <Home />
-      </div>
-      <div id="nosotros">
+      {/* Navbar elegante dinámico (antes banner) */}
+      <ElegantPromoBanner />
+      
+      {/* Hero section con nueva estética elegante */}
+      <section id="inicio">
+        <ElegantHero />
+      </section>
+      
+      {/* Categorías principales */}
+      <section id="categorias">
+        <Categories />
+      </section>
+      
+      {/* Propuesta de valor única */}
+      <section id="valor">
+        <ValueProposition />
+      </section>
+      
+      {/* Sección "Confían en nosotros" con logos reales */}
+      <section id="clientes">
+        <TrustedBySection />
+      </section>
+      
+      {/* Sobre nosotros optimizado */}
+      <section id="nosotros">
         <About />
-      </div>
-      <div id="clientes">
-        <Partners />
-      </div>
-      <Contact />
+      </section>
+      
+      {/* FAQ inteligente */}
+      <section id="faq">
+        <FAQ />
+      </section>
+      
+      {/* Contacto con formulario y mapa */}
+      <section id="contacto">
+        <Contact />
+      </section>
+      
+      {/* Footer con acción */}
       <Footer />
-      <WhatsApp />
+      
+      {/* Widgets optimizados - Estrategia multi-punto WhatsApp */}
+      <OptimizedWhatsAppWidget />
     </div>
   )
 }

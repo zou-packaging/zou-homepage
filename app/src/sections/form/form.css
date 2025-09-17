@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
 .quote-request-container {
@@ -26,6 +27,34 @@
   line-height: 1.2;
 }
 
+/* Mensajes de éxito y error */
+.quote-success-message {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.quote-error-message {
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .quote-request-content {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
@@ -38,7 +67,7 @@
 .quote-form-left {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  gap: 20px;
 }
 
 .quote-form-card {
@@ -47,7 +76,6 @@
   padding: 30px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid #e8e8e8;
-  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -68,6 +96,7 @@
 
 .quote-input-group {
   margin-bottom: 20px;
+  position: relative;
 }
 
 .quote-input-group label {
@@ -98,6 +127,27 @@
   background-color: white;
 }
 
+/* Estados de error */
+.quote-input-group input.input-error,
+.quote-input-group textarea.input-error {
+  border-color: #dc3545;
+  background-color: #fff5f5;
+}
+
+.quote-input-group input.input-error:focus,
+.quote-input-group textarea.input-error:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.error-text {
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: block;
+  font-weight: 500;
+}
+
 .quote-input-group textarea {
   resize: vertical;
   min-height: 80px;
@@ -111,10 +161,16 @@
   margin-top: 4px;
 }
 
+/* Grupo de botones */
+.quote-button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
 .quote-whatsapp-btn {
   width: 100%;
-  background: #17a2b8;
-  color: white;
   border: none;
   padding: 12px 20px;
   font-size: 1rem;
@@ -122,13 +178,43 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 15px;
+  text-transform: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
 }
 
-.quote-whatsapp-btn:hover {
+.quote-whatsapp-btn.primary {
+  background: #25d366;
+  color: white;
+}
+
+.quote-whatsapp-btn.primary:hover:not(:disabled) {
   background: #128c7e;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.quote-whatsapp-btn.secondary {
+  background: transparent;
+  color: #25d366;
+  border: 2px solid #25d366;
+}
+
+.quote-whatsapp-btn.secondary:hover:not(:disabled) {
+  background: #25d366;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.quote-whatsapp-btn:disabled {
+  background: #6c757d !important;
+  color: white !important;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: #6c757d;
 }
 
 /* Form Right Side */
@@ -239,6 +325,15 @@
   border: 1px solid #e9ecef;
 }
 
+.quote-product-image-small {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+}
+
 .quote-product-details h4 {
   font-size: 1rem;
   font-weight: 600;
@@ -250,6 +345,18 @@
   font-size: 0.85rem;
   color: #6c757d;
   font-weight: 500;
+}
+
+.quote-product-details-small h5 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0 0 3px 0;
+}
+
+.quote-product-details-small span {
+  font-size: 0.75rem;
+  color: #6c757d;
 }
 
 .quote-remove-btn {
@@ -295,23 +402,8 @@
 
 /* Available Products */
 .quote-available-products {
-  background: white;
-  border-radius: 15px;
-  padding: 25px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e8e8e8;
-}
-
-.quote-available-products h4 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 15px;
-}
-
-.quote-product-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
@@ -329,31 +421,7 @@
 .quote-available-product:hover {
   transform: translateY(-1px);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-}
-
-.quote-available-product img {
-  width: 40px;
-  height: 40px;
-  border-radius: 6px;
-  object-fit: cover;
-  background: #dee2e6;
-}
-
-.quote-available-product .quote-product-info {
-  flex: 1;
-  margin-left: 10px;
-}
-
-.quote-available-product .quote-product-info h5 {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #2c3e50;
-  margin: 0 0 3px 0;
-}
-
-.quote-available-product .quote-product-info span {
-  font-size: 0.75rem;
-  color: #6c757d;
+  background: white;
 }
 
 .quote-add-btn {
@@ -368,6 +436,9 @@
   font-weight: bold;
   transition: all 0.3s ease;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .quote-add-btn:hover:not(:disabled) {
@@ -378,7 +449,11 @@
 .quote-add-btn:disabled {
   background: #28a745;
   cursor: not-allowed;
-  font-size: 0.7rem;
+}
+
+.quote-add-btn:disabled::before {
+  content: "✓";
+  font-size: 0.8rem;
 }
 
 /* Responsive Design */
@@ -386,7 +461,6 @@
   .quote-request-content {
     grid-template-columns: 1.1fr 1fr;
     gap: 30px;
-    align-items: stretch;
   }
   
   .quote-request-title {
@@ -413,8 +487,7 @@
   }
   
   .quote-form-card,
-  .quote-products-card,
-  .quote-available-products {
+  .quote-products-card {
     padding: 20px;
   }
   
@@ -426,8 +499,8 @@
     font-size: 1.1rem;
   }
   
-  .quote-request-container {
-    max-width: 100%;
+  .quote-button-group {
+    flex-direction: column;
   }
 }
 
@@ -441,8 +514,7 @@
   }
   
   .quote-form-card,
-  .quote-products-card,
-  .quote-available-products {
+  .quote-products-card {
     padding: 18px;
   }
   
@@ -457,15 +529,15 @@
   }
   
   .quote-product-item {
-    padding: 8px;
+    padding: 12px;
   }
   
   .quote-product-info {
-    gap: 8px;
+    gap: 10px;
   }
   
   .quote-product-image {
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
   }
 }
