@@ -24,20 +24,22 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const message = `Hola! Soy ${formData.nombre}. Correo: ${formData.correo}. Tel: ${formData.telefono}. Mensaje: ${formData.mensaje}`;
+    // Construir el mensaje con todos los datos del formulario
+    const message = `Hola! Soy ${formData.nombre}.%0ACorreo: ${formData.correo}%0ATeléfono: ${formData.telefono}%0AMensaje: ${formData.mensaje}`;
 
     const phoneNumber = '5493512341463';
     
-    // Estrategia múltiple para WhatsApp
+    // Estrategia múltiple para WhatsApp con mensaje incluido en ambos casos
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
     let whatsappUrl;
     if (isMobile) {
-      whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+      whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${message}`;
     } else {
-      whatsappUrl = `https://wa.me/${phoneNumber}`;
+      whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     }
 
+    // Google Analytics tracking
     if (typeof gtag !== 'undefined') {
       gtag('event', 'conversion', {
         send_to: 'AW-CONVERSION_ID/Contact_Form_Submit',
@@ -48,33 +50,33 @@ const Contact = () => {
       });
     }
 
-    setTimeout(() => {
+    // Abrir WhatsApp inmediatamente
+    try {
       window.open(whatsappUrl, '_blank');
-      setSubmitMessage('¡Mensaje enviado! Te contactaremos pronto.');
-      setIsSubmitting(false);
       
-      setFormData({
-        nombre: '',
-        correo: '',
-        telefono: '',
-        mensaje: ''
-      });
+      // Mostrar mensaje de éxito
+      setSubmitMessage('¡Redirigiendo a WhatsApp! Si no se abre automáticamente, revisa los pop-ups.');
       
-      // Si es desktop, ofrecer copiar mensaje
-      if (!isMobile) {
-        setTimeout(() => {
-          if (confirm('¿El mensaje no apareció? Haz clic en OK para copiarlo.')) {
-            navigator.clipboard.writeText(message).then(() => {
-              alert('Mensaje copiado! Pégalo en WhatsApp.');
-            }).catch(() => {
-              prompt('Copia este mensaje:', message);
-            });
-          }
-        }, 2000);
-      }
+      // Limpiar formulario
+      setTimeout(() => {
+        setFormData({
+          nombre: '',
+          correo: '',
+          telefono: '',
+          mensaje: ''
+        });
+        setIsSubmitting(false);
+      }, 1000);
       
+      // Limpiar mensaje de éxito
       setTimeout(() => setSubmitMessage(''), 5000);
-    }, 1000);
+      
+    } catch (error) {
+      console.error('Error al abrir WhatsApp:', error);
+      setSubmitMessage('Error al abrir WhatsApp. Por favor, inténtalo nuevamente.');
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitMessage(''), 5000);
+    }
   };
 
   return (
