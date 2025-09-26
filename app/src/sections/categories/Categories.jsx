@@ -75,43 +75,38 @@ const Categories = () => {
 
   const handleCategoryClick = (category) => {
     const phoneNumber = '5493512341463';
-    
-    // Mensaje muy simple
-    const message = `Hola! Me interesa ${category.name}.`;
-    
-    // Estrategia múltiple para WhatsApp
+    // Mensaje enriquecido y consistente (siempre irá como texto prellenado)
+    const baseMessage = `Hola! Me interesa la categoría "${category.name}". Podrían brindarme más información sobre estos productos: ${category.products.join(', ')}?`;
+
+    const encodedMessage = encodeURIComponent(baseMessage);
+
+    // Detección básica de dispositivo
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    let whatsappUrl;
-    if (isMobile) {
-      whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
-    } else {
-      whatsappUrl = `https://wa.me/${phoneNumber}`;
-    }
-    
-    // Track category selection
+
+    // Siempre incluir el parámetro text, también en desktop
+    const whatsappUrl = isMobile
+      ? `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`
+      : `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+    // Analytics (si está disponible)
     if (typeof gtag !== 'undefined') {
-      gtag('event', 'category_select', {
-        event_category: 'engagement',
-        event_label: category.name,
-        value: 1
-      });
+      try {
+        gtag('event', 'category_select', {
+          event_category: 'engagement',
+          event_label: category.name,
+          value: 1
+        });
+      } catch (e) {
+        // Silencioso: no romper UX
+      }
     }
-    
-    window.open(whatsappUrl, '_blank');
-    
-    // Si es desktop, ofrecer copiar mensaje
-    if (!isMobile) {
-      setTimeout(() => {
-        const fullMessage = `Hola! Me interesa ${category.name}. Productos: ${category.products.join(', ')}.`;
-        if (confirm('¿El mensaje no apareció? Clic OK para copiarlo.')) {
-          navigator.clipboard.writeText(fullMessage).then(() => {
-            alert('Mensaje copiado!');
-          }).catch(() => {
-            prompt('Copia este mensaje:', fullMessage);
-          });
-        }
-      }, 2000);
+
+    const newTab = window.open(whatsappUrl, '_blank');
+
+    // Fallback para navegadores que bloqueen open o protocolo
+    if (!newTab) {
+      navigator.clipboard?.writeText(baseMessage);
+      alert('No se pudo abrir WhatsApp automáticamente. El mensaje se copió al portapapeles.');
     }
   };
 
@@ -180,6 +175,8 @@ const Categories = () => {
                 <button 
                   className="category-cta"
                   style={{ borderColor: category.color, color: category.color }}
+                  onClick={(e) => { e.stopPropagation(); handleCategoryClick(category); }}
+                  aria-label={`Consultar por categoría ${category.name} en WhatsApp`}
                 >
                   <span>Ver Productos</span>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
